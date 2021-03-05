@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>Bilans</title>
+	<meta name="description" content="Zarządzanie budżetem" />
+	<meta name="keywords" content="budżet, przychód, wydatki" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="main.css" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+	
+	<!--[if lt IE 9]>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<![endif]-->
+	
+</head>
+
+<body onload="data();">
+
+	<header>
+	
+		<nav class="navbar navbar-dark bg-navbar navbar-expand-lg">
+			
+				<a class="navbar-brand" href="strona_główna.html"><img src="img/money.png" width="40" height="35" class="d-inline-block mr-1 align-center mx-2" alt=""> Budżet-Manager </a>
+			
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik nawigacji">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			
+				<div class="collapse navbar-collapse align-items-start" id="mainmenu">
+			
+				<ul class="navbar-nav mr-auto menu">
+					<li class="nav-item">
+						<a class="nav-link" href="przychody.html">Dodaj przychód</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="wydatki.html">Dodaj wydatek</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="bilans.html">Przeglądaj bilans</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Ustawienia</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Wyloguj się</a>
+					</li>
+				</ul>
+				
+				</div>
+				
+			</nav>
+	
+	<div id="container">
+	
+			<div id="logowanie"><a href="logowanie.html" class="link" title="Strona logowania">Logowanie</a></div>
+			<div id="rejestracja"><a href="rejestracja.html" class="link" title="Strona rejestracji">Rejestracja</a></div>
+			<div style="clear:both"></div>
+			
+					<h1 class="logo text-center myclass m-auto"><a href="strona_główna.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
+					
+	</div>
+		
+		</header>
+		
+			<main>
+	
+				<article>
+		
+					<section>
+		
+						<div class="categories">
+				
+							<header>
+		
+								<h1>Bilans z wybranego okresu:</h1>
+			
+									<form action="strona_główna.html" method="post">
+
+										<div class="justify-content-around column my-col3">
+								
+										Okres zdefiniowany:
+										<select id="płatność" name="płatność" class="col-xl-6 col-lg-12 align-start">
+												<option value="bm" selected>Bieżący miesiąc</option>
+												<option value="pm">Poprzedni miesiąc</option>
+												<option value="br">Bieżący rok</option>
+												<option value="n">Niestandardowy</option>
+										</select>
+										</div>
+						
+										<div class="justify-content-between column my-col3">
+						
+										Zakres dat:<input type="date" name="dzien" value="data();" class="od">
+										<input type="date" name="dzien" value="data();">
+						
+										</div>
+										
+									</form>
+	
+									<table width="80%" align="center">
+										<tr>
+											<td colspan="3" align="center" bgcolor="black">
+												</td>
+										</tr>
+										<tr>
+											<td width="80%" align="top">
+						<h3>Przychody</h3> 
+			
+						<div class="category">Wynagrodzenie:</div><div class="kategoriap"><div class="columnp1"><h4>Rodzaj przychodu: </h4></div><div class="columnp2"> <h4>Wysokość przychodu:</h4></div><div class="columnp3"> <h4>Data: </h4></div></div><div style="clear:both;"></div>
+						
+						<div class="category">Odsetki bankowe:</div><div class="kategoriap"><div class="columnp1"><h4>Rodzaj przychodu: </h4></div><div class="columnp2"> <h4>Wysokość przychodu:</h4></div><div class="columnp3"> <h4>Data: </h4></div></div><div style="clear:both;"></div>
+						
+						<div class="category">Sprzedaż na allegro:</div><div class="kategoriap"><div class="columnp1"><h4>Rodzaj przychodu: </h4></div><div class="columnp2"> <h4>Wysokość przychodu:</h4></div><div class="columnp3"> <h4>Data: </h4></div></div><div style="clear:both;"></div>
+						
+						<div class="category">Inne:</div><div class="kategoriap"><div class="columnp1"><h4>Rodzaj przychodu: </h4></div><div class="columnp2"> <h4>Wysokość przychodu:</h4></div><div class="columnp3"> <h4>Data: </h4></div></div><div style="clear:both;"></div>
+						</td> 
+				</tr>
+				<tr>
+						<td colspan="3" align="center" bgcolor="black">
+						</td>
+				</tr>
+						<td width="640" valign="top">
+						<h3>Wydatki</h3> 
+			
+						Jedzenie:<div class="kategoriaw"><br /></div>
+						Mieszkanie:<div class="kategoriaw"><br /></div>
+						Transport:<div class="kategoriaw"><br /></div>
+						Telekomunikacja:<div class="kategoriaw"><br /></div>
+						Opieka zdrowotna:<div class="kategoriaw"><br /></div>
+						Ubranie:<div class="kategoriaw"><br /></div>
+						Higiena:<div class="kategoriaw"><br /></div>
+						Dzieci:<div class="kategoriaw"><br /></div>
+						Rozrywka:<div class="kategoriaw"><br /></div>
+						Wycieczka:<div class="kategoriaw"><br /></div>
+						Szkolenia:<div class="kategoriaw"><br /></div>
+						Książki:<div class="kategoriaw"><br /></div>
+						Oszczędności:<div class="kategoriaw"><br /></div>
+						Emerytura:<div class="kategoriaw"><br /></div>
+						Spłata długów:<div class="kategoriaw"><br /></div>
+						Darowizna:<div class="kategoriaw"><br /></div>
+						Inne wydatki:<div class="kategoriaw"><br /></div>
+						
+						</td> 
+		</tr>
+	</table>
+	
+	</header>
+						
+					</div>
+	
+				</section>
+	
+			</article>
+		
+		</main>
+		
+		<footer>
+				
+				<div class="info" style="text-align: center;">
+						Wszelkie prawa zastrzeżone &copy; 2021 Dziękuję za wizytę!
+				</div>
+		
+		</footer>
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+		
+		<script src="js/bootstrap.min.js"></script>
+		<script src="app.js"></script>
+
+</body>
+</html>

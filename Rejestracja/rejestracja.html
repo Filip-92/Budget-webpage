@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>Rejestracja</title>
+	<meta name="description" content="Zarządzanie budżetem" />
+	<meta name="keywords" content="budżet, przychód, wydatki" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+	
+	<!--[if lt IE 9]>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<![endif]-->
+	
+</head>
+
+<body>
+
+	<div id="container" class="form-group">
+		<form action="logowanie.html" method="post" enctype="multipart/form-data">
+		
+			<div style="color: #008000; font-size: 24; font-weight: bold; margin-bottom: 20px; text-align: center;"> Podaj dane do rejestracji: </div>
+			
+			<input type="text" placeholder="imię" onfocus="this.placeholder=' ' " onblur="this.placeholder='imię'" required>
+			
+			<input type="email" placeholder="e-mail" onfocus="this.placeholder=' ' " onblur="this.placeholder='email'" required>
+			
+			<input type="password" placeholder="hasło" class="form-control" aria-describedby="warunkiHasla" onfocus="this.placeholder=' ' " onblur="this.placeholder='hasło'" required>
+			<small id="warunkiHasla" class="form-text text-muted">
+				Hasło powinno mieć co najmniej 8 znaków, zawierać jedną dużą literę i jeden znak specjalny
+			</small>
+			
+			<input type="submit" value="Zarejestruj konto">
+			
+		</form>
+	</div>
+	
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	
+			<script src="js/bootstrap.min.js"></script>
+	
+</body>
+</html>
