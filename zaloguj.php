@@ -4,7 +4,7 @@
 	
 	if ((!isset($_POST['login'])) || (!isset($_POST['password'])))
 	{
-		header('Location: logowanie.php');
+		header('Location:logowanie.php');
 		exit();
 	}
 
@@ -36,8 +36,7 @@
 				if (password_verify($password, $wiersz['pass']))
 				{
 					$_SESSION['zalogowany'] = true;
-					
-					
+							
 					$_SESSION['id'] = $wiersz['id'];
 					$_SESSION['user'] = $wiersz['user'];
 					
@@ -47,15 +46,15 @@
 				}
 				else 
 				{	
-					$_SESSION['blad'] = '<span style="color:red">Nieprawidłowy login lub hasło!</span>';
 					header('Location: logowanie.php');
+					$_SESSION['blad'] = '<div class="error">Nieprawidłowy login lub hasło!</div>';
 				}
 				
 			} 
 			else 
 			{	
-				$_SESSION['blad'] = '<span style="color:red">Nieprawidłowy login lub hasło!</span>';
 				header('Location: logowanie.php');
+				$_SESSION['blad'] = '<div class="error">Nieprawidłowy login lub hasło!</div>';
 			}
 			
 		}

@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Strona główna</title>
+	<title>Przychody</title>
 	<meta name="description" content="Zarządzanie budżetem" />
 	<meta name="keywords" content="budżet, przychód, wydatki" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -19,11 +19,11 @@
 	
 </head>
 
-<body>
+<body onload="data();">
 
 	<header>
 	
-	<nav class="navbar navbar-dark bg-navbar navbar-expand-lg">
+		<nav class="navbar navbar-dark bg-navbar navbar-expand-lg">
 			
 				<a class="navbar-brand" href="index.html"><img src="img/money.png" width="40" height="35" class="d-inline-block mr-1 align-center mx-2" alt=""> Budżet-Manager</a>
 			
@@ -35,7 +35,7 @@
 			
 				<ul class="navbar-nav mr-auto menu">
 					<li class="nav-item">
-						<a class="nav-link" href="przychody.php">Dodaj przychód</a>
+						<a class="nav-link active" href="przychody.php">Dodaj przychód</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="wydatki.php">Dodaj wydatek</a>
@@ -47,7 +47,7 @@
 						<a class="nav-link" href="#">Ustawienia</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Wyloguj się</a>
+						<a class="nav-link" href="logout.php">Wyloguj się</a>
 					</li>
 				</ul>
 				
@@ -56,34 +56,61 @@
 			</nav>
 	
 	<div id="container">
-	
-	
+		
 			<div id="logowanie"><a href="logowanie.php" class="link" title="Strona logowania">Logowanie</a></div>
-			<div id="rejestracja"><a href="rejestracja.php" class="link" title="Strona rejestracji">Rejestracja</a></div>	
+			<div id="rejestracja"><a href="rejestracja.php" class="link" title="Strona rejestracji">Rejestracja</a></div>
 			<div style="clear:both"></div>
 			
-					<h1 class="logo text-center myclass m-auto"><a href="index.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
-					
+			<h1 class="logo text-center myclass m-auto"><a href="index.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
+	
 	</div>
 		
 		</header>
-		
-		<main>
 	
-			<article>
+			<main>
+	
+				<article>
 		
-				<section>
+					<section>
 		
-					<div class="categories">
+						<div class="categories">
 				
-						<header>
-		
-							<h1>Witaj w aplikacji służącej do zarządzania wydatkami!</h1>
-							<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum blandit sem, non condimentum quam malesuada in. Maecenas ornare dignissim velit, vitae eleifend est accumsan eu. Sed tempor lacus nunc, sed eleifend mi tempus a. Cras dui nunc, sollicitudin in est non, bibendum ullamcorper sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut volutpat luctus mauris non sollicitudin. Praesent ac quam non sapien malesuada commodo. Nam vitae nulla et dolor luctus blandit. Proin nec semper lectus, quis aliquam orci.</p>
+							<header>
+			
+								<form action="index.html" method="post">
+					
+									<div id="formId" class="justify-content-around column"										
+										
+										<label class="col-form-label"> Data przychodu:</label> <input type="date" name="dzien" value="<?php echo date('Y-m-d'); ?>">
+											
+																				
+										<label for="kategoria" class="col-form-label"> Kategoria: </label>
+										<select id="kategoria" name="kategoria">
+											<option value="w" selected>Wynagrodzenie</option>
+											<option value="ob">Odsetki bankowe</option>
+											<option value="s">Sprzedaż na allegro</option>
+											<option value="i">Inne</option>
+										</select>
+									
+										<div class="justify-content-center column col-lg-12 align-middle">
+										
+											<label id="komentarz" class="col-form-label my-col1" >Komentarz (opcjonalnie):</label><input type="text" placeholder="inne" onfocus="this.placeholder=' ' " onblur="this.placeholder='inne' ">
+									
+										</div>
+									</div>
+									
+									<div class="row row-expenses justify-content-center">
+											<div class="col-xl-6 col-lg-12">
+													<input type="submit" value="Dodaj" class="col-lg-6 col-form-label">
+											</div>
+											<div class="col-xl-6 col-lg-12">
+												<input type="reset" value="Anuluj" class="col-lg-6 col-form-label">
+											</div>
+									</div>
 						
+						</form>
 						</header>
-						
-					</div>
+						</div>
 	
 				</section>
 	
@@ -93,7 +120,7 @@
 		
 		<footer>
 				
-				<div class="info">
+				<div class="info" style="text-align: center;">
 						Wszelkie prawa zastrzeżone &copy; 2021 Dziękuję za wizytę!
 				</div>
 		
@@ -111,6 +138,7 @@
         crossorigin="anonymous"></script>
 		
 		<script src="js/bootstrap.min.js"></script>
+		<script src="app.js"></script>
 
 </body>
 </html>

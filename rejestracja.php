@@ -75,7 +75,7 @@
 		
 		try
 		{
-			$polaczenie = new mysqli($host, $db_user, $db_password, $db_name);
+			$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
 			if ($polaczenie->connect_errno!=0)
 			{
 				throw new Exception(mysqli_connect_errno());
@@ -110,10 +110,10 @@
 				{
 					//Hurra, wszystkie testy zaliczone, dodajemy gracza do bazy
 					
-					if ($polaczenie->query("INSERT INTO uzytkownicy VALUES (NULL, '$login', '$password_hash', '$email')"))
+					if (@$polaczenie->query("INSERT INTO uzytkownicy VALUES (NULL, '$login', '$password_hash', '$email')"))
 					{
 						$_SESSION['udanarejestracja']=true;
-						header('Location: logowanie.html');
+						header('Location: logowanie.php');
 					}
 					else
 					{
@@ -155,7 +155,7 @@
 		
 			<div style="color: #008000; font-size: 24; font-weight: bold; margin-bottom: 20px; text-align: center;"> Podaj dane do rejestracji: </div>
 			
-			<input type="text" placeholder="login" name="login" onfocus="this.placeholder=' ' " onblur="this.placeholder='login'">
+			<input type="text" placeholder="login" name="login" onfocus="this.placeholder=' ' " onblur="this.placeholder='login'" maxlength="20">
 			
 			<?php
 			
@@ -179,7 +179,7 @@
 			
 			?>
 			
-			<input type="password" placeholder="hasło" name="password1" onfocus="this.placeholder=' ' " onblur="this.placeholder='hasło'">
+			<input type="password" placeholder="hasło" name="password1" onfocus="this.placeholder=' ' " onblur="this.placeholder='hasło'" maxlength="20">
 			
 			<?php
 			

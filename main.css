@@ -404,6 +404,13 @@ footer
 	min-width: 500px;
 }
 
+.error
+{
+	color: red;
+	margin-top: 10px;
+	font-size: 14px;
+}
+
 @media (max-width: 575px)
 {
 	#logowanie:
