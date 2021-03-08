@@ -1,3 +1,52 @@
+<?php
+
+	session_start();
+	
+	//$_SESSION['id'] =$logged_user_id;
+
+	if ((isset($_POST['kategoria']))AND(isset($_POST['data'])))
+	{
+		$amount = $_POST['kwota'];
+		$date = $_POST['data'];
+		$income_category = $_POST['kategoria'];
+		$comment = $_POST['komentarz'];
+		
+		require_once "connect.php";
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		
+		try
+		{
+			$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
+			if ($polaczenie->connect_errno!=0)
+			{
+				throw new Exception(mysqli_connect_errno());
+			}
+			else
+			{
+					if (@$polaczenie->query("INSERT INTO przychody (logged_user_id, income_id, amount, date, income_category, comment) VALUES ('$logged_user_id', NULL, '$amount', '$date', '$income_category', '$comment')"))
+					{
+						$_SESSION['dodanoprzychod']=true;
+						echo "Nowy przychód dodany";
+						header('Location: index.html');
+					}
+					else
+					{
+						throw new Exception($polaczenie->error);
+					}
+				
+				$polaczenie->close();
+			}
+		}
+		catch(Exception $e)
+		{
+			echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o dodanie przychodu w innym terminie!</span>';
+			//echo '<br />Informacja developerska: '.$e;
+		}
+		
+	}
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -57,9 +106,7 @@
 	
 	<div id="container">
 		
-			<div id="logowanie"><a href="logowanie.php" class="link" title="Strona logowania">Logowanie</a></div>
-			<div id="rejestracja"><a href="rejestracja.php" class="link" title="Strona rejestracji">Rejestracja</a></div>
-			<div style="clear:both"></div>
+			<div id="logowanie"><a href="logout.php" class="link" title="Strona logowania">Wyloguj</a></div>
 			
 			<h1 class="logo text-center myclass m-auto"><a href="index.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
 	
@@ -79,24 +126,22 @@
 			
 								<form action="index.html" method="post">
 					
-									<div id="formId" class="justify-content-around column"										
+									<div id="formId" class="justify-content-center row">	
+									
+										<label id="kwota" class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="kwota" step='0.01' style="margin-right: 0px;">
 										
-										<label class="col-form-label"> Data przychodu:</label> <input type="date" name="dzien" value="<?php echo date('Y-m-d'); ?>">
-											
-																				
-										<label for="kategoria" class="col-form-label"> Kategoria: </label>
-										<select id="kategoria" name="kategoria">
+										<label class="col-form-label"> Data przychodu:</label><input type="date" name="data" value="<?php echo date('Y-m-d'); ?>" style="margin-top: 5px; margin-right: 0px;">
+										
+										<label for="kategoria" class="col-form-label" style="margin-top: -10px;"> Kategoria: </label>
+										<select id="kategoria" name="kategoria" style="margin-right: 0px;">
 											<option value="w" selected>Wynagrodzenie</option>
 											<option value="ob">Odsetki bankowe</option>
 											<option value="s">Sprzedaż na allegro</option>
 											<option value="i">Inne</option>
 										</select>
 									
-										<div class="justify-content-center column col-lg-12 align-middle">
+										<label id="komentarz" class="col-form-label" >Komentarz (opcjonalnie):</label><input type="text" placeholder="inne" onfocus="this.placeholder=' ' " onblur="this.placeholder='inne' " name="komentarz" style="margin-top: 5px; margin-right: 0px;">
 										
-											<label id="komentarz" class="col-form-label my-col1" >Komentarz (opcjonalnie):</label><input type="text" placeholder="inne" onfocus="this.placeholder=' ' " onblur="this.placeholder='inne' ">
-									
-										</div>
 									</div>
 									
 									<div class="row row-expenses justify-content-center">
@@ -108,8 +153,8 @@
 											</div>
 									</div>
 						
-						</form>
-						</header>
+								</form>
+							</header>
 						</div>
 	
 				</section>
@@ -138,7 +183,6 @@
         crossorigin="anonymous"></script>
 		
 		<script src="js/bootstrap.min.js"></script>
-		<script src="app.js"></script>
 
 </body>
 </html>

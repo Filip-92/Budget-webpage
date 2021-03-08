@@ -79,21 +79,21 @@
 			
 								<form action="index.html" method="post">
 						
-									<div id="formId" class="justify-content-around column">
+									<div id="formId" class="justify-content-center row">
+									
+										<label id="kwota" class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="kwota" step="0.01"	style="margin-right: 0px;">
 								
-									<label class="col-form-label my-col"> Data wydatku: <input type="date" name="dzien" value="<?php echo date('Y-m-d'); ?>" class="col-form-label my-col1 dw"></label>
-								
-									<label for="płatność" class="col-form-label my-col1"> Sposób płatności: </label>
-										<select id="płatność" name="płatność">
+										<label class="col-form-label"> Data wydatku:</label><input type="date" name="data" value="<?php echo date('Y-m-d'); ?>" class="col-form-label" style="margin-top: 5px; margin-right: 0px;">
+									
+										<label for="płatność" class="col-form-label" style="margin-top: -10px;"> Sposób płatności: </label>
+										<select id="płatność" name="płatność" style="margin-top: 5px; margin-right: 0px;">
 											<option value="g" selected>Gotówka</option>
 											<option value="d">Karta debetowa</option>
 											<option value="k">Karta kredytowa</option>
 										</select>
-						
-									<div class="justify-content-center column">
 								
-										<label for="kategoria" class="col-form-label my-col1 my-col2 kat"> Kategoria: </label>
-										<select id="kategoria" name="kategoria">
+										<label for="kategoria" class="col-form-label"> Kategoria: </label>
+										<select id="kategoria" name="kategoria" style="margin-top: 5px; margin-right: 0px;">
 												<option value="j" selected>Jedzenie</option>
 												<option value="m">Mieszkanie</option>
 												<option value="t">Transport</option>
@@ -112,19 +112,18 @@
 												<option value="d">Darowizna</option>
 												<option value="iw">Inne wydatki</option>
 										</select>
-						
-										<label for="komentarz" class="col-form-label justify-content-around my-col1">Komentarz (opcjonalnie):<input id="komentarz" type="text" placeholder="inne" onfocus="this.placeholder=' ' " onblur="this.placeholder='inne'" class="col-form my-col1"></label>
-						
+									
+										<label for="komentarz" class="col-form-label">Komentarz (opcjonalnie):</label><input id="komentarz" type="text" placeholder="inne" onfocus="this.placeholder=' ' " onblur="this.placeholder='inne'" class="col-form" style="margin-top: 5px; margin-right: 0px;">
+									
 									</div>
-						</div>
 						
-						<div class="row row-expenses justify-content-center">
-								<div class="col-xl-6 col-lg-12">
-										<input type="submit" value="Dodaj" class="col-lg-6 col-form-label">
-								</div>
-								<div class="col-xl-6 col-lg-12">
+									<div class="row row-expenses justify-content-center">
+										<div class="col-xl-6 col-lg-12">
+											<input type="submit" value="Dodaj" class="col-lg-6 col-form-label">
+										</div>
+									<div class="col-xl-6 col-lg-12">
 										<input type="reset" value="Anuluj" class="col-lg-6 col-form-label">
-								</div>
+									</div>
 						</div>
 	
 					</form>
@@ -161,7 +160,6 @@
         crossorigin="anonymous"></script>
 		
 		<script src="js/bootstrap.min.js"></script>
-		<script src="app.js"></script>
 
 </body>
 </html>
