@@ -112,16 +112,20 @@
 					
 					if (@$polaczenie->query("INSERT INTO uzytkownicy VALUES (NULL, '$login', '$password_hash', '$email')"))
 					{
+						if (@$polaczenie->query("INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT uzytkownicy.id, incomes_category_default.name FROM uzytkownicy, incomes_category_default WHERE uzytkownicy.email= '$email'"))
+						{
 						$_SESSION['udanarejestracja']=true;
 						header('Location: logowanie.php');
+						}
 					}
 					else
 					{
 						throw new Exception($polaczenie->error);
 					}
 				}
-				
+
 				$polaczenie->close();
+
 			}
 		}
 		catch(Exception $e)

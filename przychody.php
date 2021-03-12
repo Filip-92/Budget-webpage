@@ -74,7 +74,7 @@
 	
 		<nav class="navbar navbar-dark bg-navbar navbar-expand-lg">
 			
-				<a class="navbar-brand" href="index.html"><img src="img/money.png" width="40" height="35" class="d-inline-block mr-1 align-center mx-2" alt=""> Budżet-Manager</a>
+				<a class="navbar-brand" href="index.php"><img src="img/money.png" width="40" height="35" class="d-inline-block mr-1 align-center mx-2" alt=""> Budżet-Manager</a>
 			
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik nawigacji">
 					<span class="navbar-toggler-icon"></span>
@@ -106,9 +106,9 @@
 	
 	<div id="container">
 		
-			<div id="logowanie"><a href="logout.php" class="link" title="Strona logowania">Wyloguj</a></div>
+			<div id="logowanie"><a href="logout.php" class="link">Wyloguj</a></div>
 			
-			<h1 class="logo text-center myclass m-auto"><a href="index.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
+			<h1 class="logo text-center myclass m-auto"><a href="index.php" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
 	
 	</div>
 		
@@ -124,15 +124,15 @@
 				
 							<header>
 			
-								<form action="index.html" method="post">
+								<form action="index.php" method="post">
 					
 									<div id="formId" class="justify-content-center row">	
 									
-										<label id="kwota" class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="kwota" step='0.01' style="margin-right: 0px;">
+										<label class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="kwota" step='0.01' style="margin-right: 0px;">
 										
 										<label class="col-form-label"> Data przychodu:</label><input type="date" name="data" value="<?php echo date('Y-m-d'); ?>" style="margin-top: 5px; margin-right: 0px;">
 										
-										<label for="kategoria" class="col-form-label" style="margin-top: -10px;"> Kategoria: </label>
+										<label for="kategoria" class="col-form-label"> Kategoria: </label>
 										<select id="kategoria" name="kategoria" style="margin-right: 0px;">
 											<option value="w" selected>Wynagrodzenie</option>
 											<option value="ob">Odsetki bankowe</option>

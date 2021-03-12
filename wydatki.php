@@ -81,11 +81,11 @@
 						
 									<div id="formId" class="justify-content-center row">
 									
-										<label id="kwota" class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="kwota" step="0.01"	style="margin-right: 0px;">
+										<label class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="kwota" step="0.01"	style="margin-right: 0px;">
 								
 										<label class="col-form-label"> Data wydatku:</label><input type="date" name="data" value="<?php echo date('Y-m-d'); ?>" class="col-form-label" style="margin-top: 5px; margin-right: 0px;">
 									
-										<label for="płatność" class="col-form-label" style="margin-top: -10px;"> Sposób płatności: </label>
+										<label for="płatność" class="col-form-label"> Sposób płatności: </label>
 										<select id="płatność" name="płatność" style="margin-top: 5px; margin-right: 0px;">
 											<option value="g" selected>Gotówka</option>
 											<option value="d">Karta debetowa</option>

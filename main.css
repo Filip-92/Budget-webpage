@@ -157,7 +157,6 @@ ul < li
 .menu > li:hover
 {
 	background-color: #008000;
-
 }
 
 .menu > li .active
@@ -166,6 +165,17 @@ ul < li
 	padding-left: 20px !important;
 	padding-right: 20px !important;
 	max-height: 50px !important;
+}
+
+.disabled
+{
+	pointer-events: none !important;
+	opacity: 0.3;
+}
+
+.disabled:hover
+{
+	background-color: #36b03c !important;
 }
 
 h1
