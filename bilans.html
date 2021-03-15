@@ -57,11 +57,7 @@
 	
 	<div id="container">
 	
-			<div id="logowanie"><a href="logowanie.html" class="link" title="Strona logowania">Logowanie</a></div>
-			<div id="rejestracja"><a href="rejestracja.html" class="link" title="Strona rejestracji">Rejestracja</a></div>
-			<div style="clear:both"></div>
-			
-					<h1 class="logo text-center myclass m-auto"><a href="strona_główna.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
+			<h1 class="logo1 text-center myclass m-auto"><a href="index.php" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
 					
 	</div>
 		
@@ -77,25 +73,23 @@
 				
 							<header>
 		
-								<h1>Bilans z wybranego okresu:</h1>
+								<h1 class="mt-3">Bilans z wybranego okresu:</h1>
 			
 									<form action="strona_główna.html" method="post">
 
-										<div class="justify-content-around column my-col3">
+										<div id="formId" class="justify-content-center row">
 								
-										Okres zdefiniowany:
-										<select id="płatność" name="płatność" class="col-xl-6 col-lg-12 align-start">
+										<label class="col-form-label">Okres zdefiniowany:</label>
+										<select id="płatność" name="płatność" class="col-lg-12">
 												<option value="bm" selected>Bieżący miesiąc</option>
 												<option value="pm">Poprzedni miesiąc</option>
 												<option value="br">Bieżący rok</option>
 												<option value="n">Niestandardowy</option>
 										</select>
-										</div>
-						
-										<div class="justify-content-between column my-col3">
-						
-										Zakres dat:<input type="date" name="dzien" value="data();" class="od">
-										<input type="date" name="dzien" value="data();">
+							
+										<label class="col-form-label" style="text-decoration: underline; color: green;">Zakres dat:</label>
+										<label class="col-form-label">Od:</label><input type="date" name="dzien" class="mx-2 col-lg-6">
+										<label class="col-form-label">Do:</label><input type="date" name="dzien" class="mx-2 mb-5 col-lg-6">
 						
 										</div>
 										
@@ -126,23 +120,23 @@
 						<td width="640" valign="top">
 						<h3>Wydatki</h3> 
 			
-						Jedzenie:<div class="kategoriaw"><br /></div>
-						Mieszkanie:<div class="kategoriaw"><br /></div>
-						Transport:<div class="kategoriaw"><br /></div>
-						Telekomunikacja:<div class="kategoriaw"><br /></div>
-						Opieka zdrowotna:<div class="kategoriaw"><br /></div>
-						Ubranie:<div class="kategoriaw"><br /></div>
-						Higiena:<div class="kategoriaw"><br /></div>
-						Dzieci:<div class="kategoriaw"><br /></div>
-						Rozrywka:<div class="kategoriaw"><br /></div>
-						Wycieczka:<div class="kategoriaw"><br /></div>
-						Szkolenia:<div class="kategoriaw"><br /></div>
-						Książki:<div class="kategoriaw"><br /></div>
-						Oszczędności:<div class="kategoriaw"><br /></div>
-						Emerytura:<div class="kategoriaw"><br /></div>
-						Spłata długów:<div class="kategoriaw"><br /></div>
-						Darowizna:<div class="kategoriaw"><br /></div>
-						Inne wydatki:<div class="kategoriaw"><br /></div>
+						<div class="category">Jedzenie:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Mieszkanie:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Transport:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Telekomunikacja:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Opieka zdrowotna:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Ubranie:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Higiena:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Dzieci:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Rozrywka:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Wycieczka:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Szkolenia:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Książki:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Oszczędności:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Emerytura:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Spłata długów:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Darowizna:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Inne wydatki:<div class="kategoriaw"><br /></div></div>
 						
 						</td> 
 		</tr>
@@ -176,9 +170,6 @@
         crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-		
-		<script src="js/bootstrap.min.js"></script>
-		<script src="app.js"></script>
 
 </body>
 </html>

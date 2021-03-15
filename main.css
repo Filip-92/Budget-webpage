@@ -95,6 +95,15 @@ h1.logo
 	margin-top: 200px !important;
 }
 
+h1.logo1
+{
+	font-size: 20px;
+	font-weight: 700;
+	text-transform: uppercase;
+	white-space: nowrap;
+	margin-top: 220px !important;
+}
+
 h1.logo > img
 {
 	background-color: transparent;
@@ -413,7 +422,7 @@ footer
 	}
 	#container
 	{
-		background-size: 160% 100%;
+		background-size: 180% 100%;
 	}
 }
 
@@ -434,7 +443,7 @@ footer
 	}
 	#container
 	{
-		background-size: 120% 100%;
+		background-size: 160% 100%;
 	}
 }
 
@@ -475,6 +484,10 @@ footer
 	h4
 	{
 		min-height: 40px;
+	}
+		#container
+	{
+		background-size: 140% 100%;
 	}
 }
 

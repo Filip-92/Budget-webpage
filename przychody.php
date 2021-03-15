@@ -106,9 +106,7 @@
 	
 	<div id="container">
 		
-			<div id="logowanie"><a href="logout.php" class="link">Wyloguj</a></div>
-			
-			<h1 class="logo text-center myclass m-auto"><a href="index.php" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
+			<h1 class="logo1 text-center myclass m-auto"><a href="index.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
 	
 	</div>
 		
@@ -125,6 +123,8 @@
 							<header>
 			
 								<form action="index.php" method="post">
+								
+									<h1 class="mt-3">Dodaj przychód:</h1>
 					
 									<div id="formId" class="justify-content-center row">	
 									

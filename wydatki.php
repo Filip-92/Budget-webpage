@@ -57,11 +57,7 @@
 	
 	<div id="container">
 	
-			<div id="logowanie"><a href="logowanie.php" class="link" title="Strona logowania">Logowanie</a></div>
-			<div id="rejestracja"><a href="rejestracja.php" class="link" title="Strona rejestracji">Rejestracja</a></div>	
-			<div style="clear:both"></div>
-			
-					<h1 class="logo text-center m-auto"><a href="index.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
+			<h1 class="logo1 text-center myclass m-auto"><a href="index.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
 					
 	</div>
 		
@@ -78,6 +74,8 @@
 							<header>
 			
 								<form action="index.html" method="post">
+								
+									<h1 class="mt-3">Dodaj wydatek:</h1>
 						
 									<div id="formId" class="justify-content-center row">
 									
