@@ -70,7 +70,7 @@
 		$_SESSION['fr_password1'] = $password1;
 		$_SESSION['fr_password2'] = $password2;
 		
-		require_once "connect.php";
+		require_once 'database.php';
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		
 		try
@@ -83,7 +83,9 @@
 			else
 			{
 				//Czy email już istnieje?
-				$rezultat = $polaczenie->query("SELECT id FROM uzytkownicy WHERE email='$email'");
+				$rezultat = $db->prepare("SELECT id FROM uzytkownicy WHERE email=':email'");
+				$userQuery->bindValue(':email', $email, PDO::PARAM_STR);
+				$userQuery->execute();
 				
 				if (!$rezultat) throw new Exception($polaczenie->error);
 				
@@ -95,7 +97,9 @@
 				}
 				
 				//Czy login jest już zarezerwowany?
-				$rezultat = $polaczenie->query("SELECT id FROM uzytkownicy WHERE user='$login'");
+				$rezultat = $db->prepare("SELECT id FROM uzytkownicy WHERE user=':login'");
+				$userQuery->bindValue(':login', $login, PDO::PARAM_STR);
+				$userQuery->execute();
 				
 				if (!$rezultat) throw new Exception($polaczenie->error);
 				
@@ -108,23 +112,30 @@
 				
 				if ($wszystko_OK==true)
 				{
-					//Hurra, wszystkie testy zaliczone, dodajemy gracza do bazy
+					//Hurra, wszystkie testy zaliczone, dodajemy użytkownika do bazy
 					
-					if (@$polaczenie->query("INSERT INTO uzytkownicy VALUES (NULL, '$login', '$password_hash', '$email')"))
+					if ($db->("INSERT INTO uzytkownicy VALUES (NULL, '':login', ':password', ':email')"))	
 					{
-						if (@$polaczenie->query("INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT uzytkownicy.id, incomes_category_default.name FROM uzytkownicy, incomes_category_default WHERE uzytkownicy.email= '$email'"))
-						{
+						$query_user = $db->prepare($sql_user);
+						$query_user->bindValue(':login', $login, PDO::PARAM_STR);
+						 $query_user->bindValue(':password', $password_hash, PDO::PARAM_STR);
+						 $query_user->bindValue(':email', $email, PDO::PARAM_STR);
+						 $query_user->execute();
+						 
+						$sql_incomes = "INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT uzytkownicy.id, incomes_category_default.name FROM uzytkownicy, incomes_category_default WHERE uzytkownicy.email= :email";
+						
+						 $query_incomes = $db->prepare($sql_incomes);
+						 $query_incomes->bindValue(':email', $email, PDO::PARAM_STR);
+						 $query_incomes->execute();
+						
 						$_SESSION['udanarejestracja']=true;
 						header('Location: logowanie.php');
-						}
 					}
 					else
 					{
 						throw new Exception($polaczenie->error);
 					}
 				}
-
-				$polaczenie->close();
 
 			}
 		}
@@ -135,6 +146,54 @@
 		}
 		
 	}
+
+?>
+
+<?php
+session_start();
+
+require_once 'database.php';
+
+if (!isset($_SESSION['logged_id']))
+{
+	if (isset($_POST['login']))
+	{
+		$login = filter_input(INPUT_POST, 'login');
+		$password = filter_input(INPUT_POST, 'pass');
+		
+		$userQuery = $db->prepare('SELECT id, password FROM admins WHERE login = :login');
+		$userQuery->bindValue(':login', $login, PDO::PARAM_STR);
+		$userQuery->execute();
+		
+		//echo $userQuery->rowCount();
+		
+		$user = $userQuery->fetch();
+		
+		//echo $user['id'] . " " . $user['password'];
+		
+		if ($user && password_verify($password, $user['password']))
+		{
+			$_SESSION['logged_id'] = $user['id'];
+			unset($_SESSION['bad_attampt']);
+		}
+		else
+		{
+			$_SESSION['bad_attempt'] = true;
+			header('Location: admin.php');
+			exit();
+		}
+	}
+	else
+	{
+		header('Location: admin.php');
+		exit();
+	}
+}
+
+$usersQuery = $db->query('SELECT * FROM users');
+$users = $usersQuery->fetchAll();
+
+//print_r($users);
 
 ?>
 
