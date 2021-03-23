@@ -1,0 +1,52 @@
+Rejestracja
+Logowanie
+Menu główne
+Dodaj wydatek
+Przeglądaj bilans
+
+Podczas rejestracji poproś go o imię, adres email oraz hasło do konta.
+Po założeniu konta użytkownik może zalogować się.
+
+Po zalogowaniu widzi menu główne z następującymi opcjami do wyboru:
+Dodaj przychód
+Dodaj wydatek
+Przeglądaj bilans
+Ustawienia
+Wyloguj się
+
+Strona „Dodaj wydatek” będzie wyglądała i działała analogicznie jak ta z przychodami, dodamy tylko miejsce na wpisanie sposobu płatności.
+Kwota: ….
+Data: (w postaci rrrr-mm-dd np. 2018-01-30. Domyślnie wstaw aktualną datę)
+Sposób płatności:
+– Gotówka
+– Karta debetowa
+– Karta kredytowa
+Kategoria:
+– Jedzenie
+– Mieszkanie
+– Transport
+– Telekomunikacja
+– Opieka zdrowotna
+– Ubranie
+– Higiena
+– Dzieci
+– Rozrywka
+– Wycieczka
+– Szkolenia
+– Książki
+– Oszczędności
+– Na złotą jesień, czyli emeryturę
+– Spłata długów
+– Darowizna
+– Inne wydatki
+Komentarz (opcjonalnie): ….
+[Dodaj] [Anuluj]
+
+Teraz punkt najważniejszy, czyli strona „Przeglądaj bilans”. Na tej stronie prezentujemy podsumowanie przychodów oraz wydatków.
+Na górze po prawej stronie pozwól użytkownikowi (za pomocą tzw. dropdown menu) wybrać okres z góry zdefiniowany, taki jak: bieżący miesiąc, poprzedni miesiąc, bieżący rok lub jako 4 opcję stwórz „niestandardowy”. Po wybraniu ostatniej opcji zapytaj użytkownika o zakres dat, który go interesuje.
+Domyślnie niech będzie wybrana opcja „bieżący miesiąc”.
+Następnie wyświetl użytkownikowi 2 tabele.
+W pierwszej wypisz kategorie przychodów oraz to jaki był przychód w każdej z nich. Należy tutaj zsumować wszystkie przychody z poszczególnych kategorii, czyli np. zsumować przychód ze sprzedaży na allegro, która odbyła się w zadanym okresie czasu.
+W drugiej tabeli wyświetl kategorie wydatków oraz to, ile wynosiły w sumie wydatki w poszczególnych kategoriach. Podobnie jak wyżej należy tutaj zsumować wszystkie wydatki z poszczególnych kategorii, czyli np. zsumować wydatki z kategorii jedzenie,  która odbyła się w zadanym okresie czasu i analogicznie dla pozostałych kategorii. Dodatkowo posortuj tę tabelę w kolejności malejącej wg kwoty. Na końcu wyświetl bilans, czyli sumę wszystkich: przychodów – wydatków.
+Warto dodać tutaj zapis: „Uważaj, wpadasz w długi!” kiedy wynik będzie ujemny, lub „Gratulacje. Świetnie zarządzasz finansami!” – kiedy wynik będzie dodatni. Dodaj również diagram kołowy (pie chart), gdzie w ładnej formie graficznej przedstawisz na co przeznacza pieniądze.
+Jeśli chciałbyś zainspirować się tym, jak mógłby taki bilans wyglądać rekomenduję Ci stronę Michała Szafrańskiego, gdzie możesz pobrać arkusz kalkulacyjny z budżetem domowym. Weź tylko pod uwagę to, że jest to bardziej rozbudowana wersja, która uwzględnia planowanie budżetu oraz rozliczanie się z tego planu. Ty jednak możesz zainspirować się tym w jaki sposób on przedstawia dane i zrobić to podobnie lub ładniej:)
