@@ -6,22 +6,26 @@ body
 	font-family: Open-Sans, serif;
 }
 
+:root {
+	--svg: url("data:image/svg+xml;base64,<svg xmlns='http://www.w3.org/2000/svg'></svg>");
+}
+
 #container
 {
 	background-image: url("img/oszczedzanie.svg");
 	height: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: 100% 100%;
+	background-size: cover;
 	width: 70%;
 	min-width: 500px;
 	height: auto;
-	min-height: 280px;
+	min-height: 250px;
 	padding: 10px;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: white;
-	vertical-align:bottom;
+	vertical-align: bottom;
 	align: center;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
@@ -420,10 +424,6 @@ footer
 	{
 		margin-left: 60%;
 	}
-	#container
-	{
-		background-size: 180% 100%;
-	}
 }
 
 @media (max-width: 800px)
@@ -440,10 +440,6 @@ footer
 	{
 		width: 40px;
 		height: 40px;
-	}
-	#container
-	{
-		background-size: 160% 100%;
 	}
 }
 
@@ -484,10 +480,6 @@ footer
 	h4
 	{
 		min-height: 40px;
-	}
-		#container
-	{
-		background-size: 140% 100%;
 	}
 }
 
