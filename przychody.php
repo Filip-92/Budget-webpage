@@ -4,14 +4,14 @@
 	
 	//$_SESSION['id'] =$logged_user_id;
 
-	if ((isset($_POST['kategoria']))AND(isset($_POST['data'])))
+	if (isset($_POST['kwota']))
 	{
 		$amount = $_POST['kwota'];
 		$date = $_POST['data'];
 		$income_category = $_POST['kategoria'];
 		$comment = $_POST['komentarz'];
 		
-		require_once "connect.php";
+		require_once "database.php";
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		
 		try
@@ -23,11 +23,30 @@
 			}
 			else
 			{
-					if (@$polaczenie->query("INSERT INTO przychody (logged_user_id, income_id, amount, date, income_category, comment) VALUES ('$logged_user_id', NULL, '$amount', '$date', '$income_category', '$comment')"))
+					$_SESSION['kwota'] = $wiersz['kwota'];
+					$_SESSION['data'] = $wiersz['data'];
+					$_SESSION['kategoria'] = $wiersz['kategoria'];
+					$_SESSION['komentarz'] = $wiersz['komentarz'];
+					
+					$sql_test = 'INSERT INTO incomes (income_category_assigned_to_user_id, user_id) SELECT uzytkownicy.id, incomes_category_assigned_to_users.name, incomes_category_assigned_to_users.id FROM uzytkownicy, incomes_category_assigned_to_users WHERE incomes_category_assigned_to_users.name= :kategoria AND uzytkownicy.id = incomes_category_assigned_to_users.user_id';
+					
+					$query_incomes1 = $db->prepare($sql_test);
+					$query_incomes1->bindValue(':kategoria', $kategoria, PDO::PARAM_STR);
+					$query_incomes1->execute();
+					
+					$sql_income = "INSERT INTO incomes (id, amount, date_of_income, income_comment) VALUES (NULL, ':kwota', ':data', ':komentarz')";
+				
+					$query_incomes2 = $db->prepare($sql_income);
+					$query_incomes2->bindValue(':kwota', $kwota, PDO::PARAM_STR);
+					$query_incomes2->bindValue(':data', $date, PDO::PARAM_STR);
+					$query_incomes2->bindValue(':komentarz', $comment, PDO::PARAM_STR);
+					$query_incomes2->execute();
+				
+					if (@$polaczenie->query("INSERT INTO incomes (logged_user_id, income_id, amount, date, income_category, comment) VALUES ('$logged_user_id', NULL, '$amount', '$date', '$income_category', '$comment')"))
 					{
 						$_SESSION['dodanoprzychod']=true;
 						echo "Nowy przychód dodany";
-						header('Location: index.html');
+						header('Location: index.php');
 					}
 					else
 					{

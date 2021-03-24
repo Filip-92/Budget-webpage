@@ -12,7 +12,9 @@ body
 
 #container
 {
+	background-image: url("img/background.jpg");
 	background-image: url("img/oszczedzanie.svg");
+	vertical-align: bottom;
 	height: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -24,7 +26,7 @@ body
 	padding: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: white;
+	background-color: #fffff6;
 	vertical-align: bottom;
 	align: center;
 	border-left: 1px solid #ccc;
@@ -440,6 +442,10 @@ footer
 	{
 		width: 40px;
 		height: 40px;
+	}
+	#container
+	{
+		background-size: 300% 300% !important;
 	}
 }
 

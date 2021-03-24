@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2021 at 08:04 PM
+-- Generation Time: Mar 24, 2021 at 10:14 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -54,32 +54,41 @@ CREATE TABLE `expenses_category_assigned_to_users` (
 --
 
 INSERT INTO `expenses_category_assigned_to_users` (`id`, `user_id`, `name`) VALUES
-(40, 26, 'Rozrywka'),
-(41, 26, 'Wycieczka'),
-(42, 26, 'Szkolenia'),
-(43, 26, 'Książki'),
-(44, 26, 'Oszczędności'),
-(45, 26, 'Emerytura'),
-(46, 26, 'Spłata długów'),
-(47, 26, 'Darowizna'),
-(48, 26, 'Inne wydatki'),
-(63, 27, 'Jedzenie'),
-(64, 27, 'Mieszkanie'),
-(65, 27, 'Transport'),
-(66, 27, 'Telekomunikacja'),
-(67, 27, 'Opieka zdrowotna'),
-(68, 27, 'Ubranie'),
-(69, 27, 'Higiena'),
-(70, 27, 'Dzieci'),
-(71, 27, 'Rozrywka'),
-(72, 27, 'Wycieczka'),
-(73, 27, 'Szkolenia'),
-(74, 27, 'Książki'),
-(75, 27, 'Oszczędności'),
-(76, 27, 'Emerytura'),
-(77, 27, 'Spłata długów'),
-(78, 27, 'Darowizna'),
-(79, 27, 'Inne wydatki');
+(79, 27, 'Inne wydatki'),
+(94, 28, 'Jedzenie'),
+(95, 28, 'Mieszkanie'),
+(96, 28, 'Transport'),
+(97, 28, 'Telekomunikacja'),
+(98, 28, 'Opieka zdrowotna'),
+(99, 28, 'Ubranie'),
+(100, 28, 'Higiena'),
+(101, 28, 'Dzieci'),
+(102, 28, 'Rozrywka'),
+(103, 28, 'Wycieczka'),
+(104, 28, 'Szkolenia'),
+(105, 28, 'Książki'),
+(106, 28, 'Oszczędności'),
+(107, 28, 'Emerytura'),
+(108, 28, 'Spłata długów'),
+(109, 28, 'Darowizna'),
+(110, 28, 'Inne wydatki'),
+(125, 29, 'Jedzenie'),
+(126, 29, 'Mieszkanie'),
+(127, 29, 'Transport'),
+(128, 29, 'Telekomunikacja'),
+(129, 29, 'Opieka zdrowotna'),
+(130, 29, 'Ubranie'),
+(131, 29, 'Higiena'),
+(132, 29, 'Dzieci'),
+(133, 29, 'Rozrywka'),
+(134, 29, 'Wycieczka'),
+(135, 29, 'Szkolenia'),
+(136, 29, 'Książki'),
+(137, 29, 'Oszczędności'),
+(138, 29, 'Emerytura'),
+(139, 29, 'Spłata długów'),
+(140, 29, 'Darowizna'),
+(141, 29, 'Inne wydatki');
 
 -- --------------------------------------------------------
 
@@ -147,10 +156,14 @@ CREATE TABLE `incomes_category_assigned_to_users` (
 --
 
 INSERT INTO `incomes_category_assigned_to_users` (`id`, `user_id`, `name`) VALUES
-(43, 27, 'Wynagrodzenie'),
-(44, 27, 'Odsetki bankowe'),
-(45, 27, 'Sprzedaż na allegro'),
-(46, 27, 'Inne');
+(50, 28, 'Wynagrodzenie'),
+(51, 28, 'Odsetki bankowe'),
+(52, 28, 'Sprzedaż na allegro'),
+(53, 28, 'Inne'),
+(57, 29, 'Wynagrodzenie'),
+(58, 29, 'Odsetki bankowe'),
+(59, 29, 'Sprzedaż na allegro'),
+(60, 29, 'Inne');
 
 -- --------------------------------------------------------
 
@@ -190,12 +203,12 @@ CREATE TABLE `payment_methods_assigned_to_users` (
 --
 
 INSERT INTO `payment_methods_assigned_to_users` (`id`, `user_id`, `name`) VALUES
-(1, 26, 'Gotówka'),
-(2, 26, 'Karta kredytowa'),
-(3, 26, 'Karta debetowa'),
-(4, 27, 'Gotówka'),
-(5, 27, 'Karta kredytowa'),
-(6, 27, 'Karta debetowa');
+(7, 28, 'Gotówka'),
+(8, 28, 'Karta kredytowa'),
+(9, 28, 'Karta debetowa'),
+(10, 29, 'Gotówka'),
+(11, 29, 'Karta kredytowa'),
+(12, 29, 'Karta debetowa');
 
 -- --------------------------------------------------------
 
@@ -220,28 +233,6 @@ INSERT INTO `payment_methods_default` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `przychody`
---
-
-CREATE TABLE `przychody` (
-  `logged_user_id` int(11) NOT NULL,
-  `income_id` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `income_category` text NOT NULL,
-  `comment` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `przychody`
---
-
-INSERT INTO `przychody` (`logged_user_id`, `income_id`, `amount`, `date`, `income_category`, `comment`) VALUES
-(1, 1, 0, '2021-03-08', 'Wynagrodzenie', '');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `uzytkownicy`
 --
 
@@ -257,7 +248,8 @@ CREATE TABLE `uzytkownicy` (
 --
 
 INSERT INTO `uzytkownicy` (`id`, `user`, `pass`, `email`) VALUES
-(27, 'filip', '$2y$10$5obdRrIFnMmkMpemUhCXj.3flcrY1nzeE2gwB5.XSxl8acP/nGbom', 'f_peszke@onet.pl');
+(29, 'adam', '$2y$10$tFOo1aOjq0IOZXsFGRHv6OZtri5cGqxBF.G1dFGjWWhEwfSPJYZhm', 'adam@wp.pl'),
+(28, 'filip', '$2y$10$FKAucdb2p8vlUYN3rj.BWeHXnCCdqf1VFIx7GxL30MAZ2nEGXAIoW', 'f_peszke@onet.pl');
 
 --
 -- Indexes for dumped tables
@@ -312,12 +304,6 @@ ALTER TABLE `payment_methods_default`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `przychody`
---
-ALTER TABLE `przychody`
-  ADD PRIMARY KEY (`logged_user_id`);
-
---
 -- Indexes for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
@@ -338,7 +324,7 @@ ALTER TABLE `expenses`
 -- AUTO_INCREMENT for table `expenses_category_assigned_to_users`
 --
 ALTER TABLE `expenses_category_assigned_to_users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `incomes`
@@ -350,7 +336,7 @@ ALTER TABLE `incomes`
 -- AUTO_INCREMENT for table `incomes_category_assigned_to_users`
 --
 ALTER TABLE `incomes_category_assigned_to_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `incomes_category_default`
@@ -362,7 +348,7 @@ ALTER TABLE `incomes_category_default`
 -- AUTO_INCREMENT for table `payment_methods_assigned_to_users`
 --
 ALTER TABLE `payment_methods_assigned_to_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `payment_methods_default`
@@ -374,7 +360,7 @@ ALTER TABLE `payment_methods_default`
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
