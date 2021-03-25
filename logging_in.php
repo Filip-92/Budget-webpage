@@ -26,7 +26,7 @@
 <body>
 
 	<div id="container">
-		<form action="zaloguj.php" method="post">
+		<form action="log_in.php" method="post">
 		
 			<div style="color: #008000; font-size: 24; font-weight: bold; margin-bottom: 20px; text-align: center;"> Podaj dane do logowania: </div>
 			
@@ -45,7 +45,7 @@
 			
 			<input type="submit" value="Zaloguj się">
 			
-			<div id="brak" style="margin-left: 15px; margin-top: 15px; font-size: 16px;">Nie posiadasz jeszcze konta? <br /><a href="rejestracja.php" class="link"> Załóż konto </a></div>
+			<div id="brak" style="margin-left: 15px; margin-top: 15px; font-size: 16px;">Nie posiadasz jeszcze konta? <br /><a href="register.php" class="link"> Załóż konto </a></div>
 			
 		</form>
 

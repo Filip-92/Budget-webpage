@@ -2,39 +2,75 @@
 
 	session_start();
 	
-	//$_SESSION['id'] =$logged_user_id;
-
-	if ((isset($_POST['kategoria']))AND(isset($_POST['data'])))
+	if (!isset($_SESSION['zalogowany']))
 	{
+		header('Location: index.html');
+		exit();
+	}
+	
+	$user_id = $_SESSION['id'];
+
+	if (isset($_POST['kwota']))
+	{
+		$wszystko_OK=true;
+		
 		$amount = $_POST['kwota'];
+		if($amount<0)
+		{
+		$amount = $amount*(-1);
+		}
+		if(!is_numeric($amount))
+		{
+			$wszystko_OK=false;
+			$_SESSION['e_amount']="Musisz podać wartość będącą liczbą arabską";
+			echo "Muka";
+		}
+		$amount = str_replace(',','.',$amount);
+		
 		$date = $_POST['data'];
+		$today_date = date('Y-m-d');
+		if($date > $today_date)
+		{
+			$wszystko_OK=false;
+			$_SESSION['e_date']="Podaj datę nie wykraczającą w przyszłość poza dzień dzisiejszy";
+			echo "Muka";
+		}
 		$income_category = $_POST['kategoria'];
 		$comment = $_POST['komentarz'];
 		
-		require_once "connect.php";
-		mysqli_report(MYSQLI_REPORT_STRICT);
+		require_once "database.php";
 		
 		try
 		{
-			$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
-			if ($polaczenie->connect_errno!=0)
+			//$_SESSION['kwota'] = $wiersz['kwota'];
+			//$_SESSION['data'] = $wiersz['data'];
+			//$_SESSION['kategoria'] = $wiersz['kategoria'];
+			//$_SESSION['komentarz'] = $wiersz['komentarz'];
+			if($wszystko_OK==true)
 			{
-				throw new Exception(mysqli_connect_errno());
-			}
-			else
-			{
-					if (@$polaczenie->query("INSERT INTO przychody (logged_user_id, income_id, amount, date, income_category, comment) VALUES ('$logged_user_id', NULL, '$amount', '$date', '$income_category', '$comment')"))
-					{
-						$_SESSION['dodanoprzychod']=true;
-						echo "Nowy przychód dodany";
-						header('Location: index.html');
-					}
-					else
-					{
-						throw new Exception($polaczenie->error);
-					}
+				$sql_check_category_id = 'SELECT id FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name = :kategoria';
+				$query_category_id = $db->prepare($sql_check_category_id);
+				$query_category_id->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+				$query_category_id->bindValue(':kategoria', $income_category, PDO::PARAM_STR);
+				$query_category_id->execute();
 				
-				$polaczenie->close();
+				$income_id = $query_category_id->fetch();
+						
+				$sql_income = "INSERT INTO incomes (id, user_id, income_category_assigned_to_user_id, amount, date_of_income, income_comment) VALUES (NULL, ':user_id', ':income_id', ':kwota', ':data', ':komentarz')";
+			
+				$query_incomes2 = $db->prepare($sql_income);
+				$query_incomes2->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+				$query_incomes2->bindValue(':income_id', $income_id, PDO::PARAM_STR);
+				$query_incomes2->bindValue(':kwota', $kwota, PDO::PARAM_STR);
+				$query_incomes2->bindValue(':data', $date, PDO::PARAM_STR);
+				$query_incomes2->bindValue(':komentarz', $comment, PDO::PARAM_STR);
+				$query_incomes2->execute();
+				
+				var_dump($query_incomes2->fetchAll());
+					
+				$_SESSION['dodanoprzychod']=true;
+				echo "Nowy przychód dodany";
+				header('Location: index.php');
 			}
 		}
 		catch(Exception $e)
@@ -68,7 +104,7 @@
 	
 </head>
 
-<body onload="data();">
+<body>
 
 	<header>
 	
@@ -84,13 +120,13 @@
 			
 				<ul class="navbar-nav mr-auto menu">
 					<li class="nav-item">
-						<a class="nav-link active" href="przychody.php">Dodaj przychód</a>
+						<div class="nav-link active">Dodaj przychód</div>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="wydatki.php">Dodaj wydatek</a>
+						<a class="nav-link" href="expenses.php">Dodaj wydatek</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="bilans.html">Przeglądaj bilans</a>
+						<a class="nav-link" href="balance.html">Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Ustawienia</a>
@@ -106,7 +142,7 @@
 	
 	<div id="container">
 		
-			<h1 class="logo1 text-center myclass m-auto"><a href="index.html" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
+			<h1 class="logo1 text-center myclass m-auto"><a href="index.php" class="link" title="Strona główna"><img src="img/wallet.png" width="60" height="40" alt="portfel"/>Zarządzaj swoim budżetem<img src="img/wallet.png" width="60" height="40" alt="portfel"/></a></h1>
 	
 	</div>
 		
@@ -125,14 +161,34 @@
 								<form action="index.php" method="post">
 								
 									<h1 class="mt-3">Dodaj przychód:</h1>
-					
+														
 									<div id="formId" class="justify-content-center row">	
 									
 										<label class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="kwota" step='0.01' style="margin-right: 0px;">
 										
+										<?php
+			
+										if (isset($_SESSION['e_amount']))
+										{
+											echo '<div class="error">'.$_SESSION['e_amount'].'</div>';
+											unset($_SESSION['e_amount']);
+										}
+			
+										?>
+										
 										<label class="col-form-label"> Data przychodu:</label><input type="date" name="data" value="<?php echo date('Y-m-d'); ?>" style="margin-top: 5px; margin-right: 0px;">
 										
-										<label for="kategoria" class="col-form-label"> Kategoria: </label>
+										<?php
+			
+										if (isset($_SESSION['e_date']))
+										{
+											echo '<div class="error">'.$_SESSION['e_date'].'</div>';
+											unset($_SESSION['e_date']);
+										}
+			
+										?>
+										
+										<label for="kategoria" class="col-form-label" style="margin-top: 5px;"> Kategoria: </label>
 										<select id="kategoria" name="kategoria" style="margin-right: 0px;">
 											<option value="w" selected>Wynagrodzenie</option>
 											<option value="ob">Odsetki bankowe</option>

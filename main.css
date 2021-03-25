@@ -12,11 +12,12 @@ body
 
 #container
 {
-	background-image: url("img/oszczedzanie.svg");
+	background-image: url("img/oszczedzanie.svg"), url("img/background.jpg");
+	vertical-align: bottom;
 	height: 100%;
 	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 500% 500%;
+	background-repeat: no-repeat, repeat;
+	background-size: cover;
 	width: 70%;
 	min-width: 500px;
 	height: auto;
@@ -24,7 +25,7 @@ body
 	padding: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: white;
+	background-color: #fffff6;
 	vertical-align: bottom;
 	align: center;
 	border-left: 1px solid #ccc;
@@ -104,8 +105,14 @@ h1.logo1
 	font-size: 20px;
 	font-weight: 700;
 	text-transform: uppercase;
+	background: transparent;
 	white-space: nowrap;
 	margin-top: 220px !important;
+}
+
+.logo1
+{
+	background: transparent;
 }
 
 h1.logo > img
@@ -178,6 +185,7 @@ ul < li
 	padding-left: 20px !important;
 	padding-right: 20px !important;
 	max-height: 50px !important;
+	cursor: default !important;
 }
 
 .disabled
@@ -424,10 +432,6 @@ footer
 	{
 		margin-left: 60%;
 	}
-	#container
-	{
-		background-size: 180% 100%;
-	}
 }
 
 @media (max-width: 800px)
@@ -447,7 +451,7 @@ footer
 	}
 	#container
 	{
-		background-size: 160% 100%;
+		background-size: 300% 300% !important;
 	}
 }
 
@@ -488,10 +492,6 @@ footer
 	h4
 	{
 		min-height: 40px;
-	}
-		#container
-	{
-		background-size: 140% 100%;
 	}
 }
 

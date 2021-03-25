@@ -4,7 +4,7 @@
 	
 	if ((!isset($_POST['login'])) || (!isset($_POST['password'])))
 	{
-		header('Location:logowanie.php');
+		header('Location:loging_in.php');
 		exit();
 	}
 
@@ -46,14 +46,14 @@
 				}
 				else 
 				{	
-					header('Location: logowanie.php');
+					header('Location: logging_in.php');
 					$_SESSION['blad'] = '<div class="error">Nieprawidłowy login lub hasło!</div>';
 				}
 				
 			} 
 			else 
 			{	
-				header('Location: logowanie.php');
+				header('Location: logging_in.php');
 				$_SESSION['blad'] = '<div class="error">Nieprawidłowy login lub hasło!</div>';
 			}
 			

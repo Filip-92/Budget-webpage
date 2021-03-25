@@ -19,7 +19,7 @@
 	
 </head>
 
-<body onload="data();">
+<body>
 
 	<header>
 	
@@ -35,13 +35,13 @@
 			
 				<ul class="navbar-nav mr-auto menu">
 					<li class="nav-item">
-						<a class="nav-link" href="przychody.php">Dodaj przychód</a>
+						<a class="nav-link" href="incomes.php">Dodaj przychód</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="wydatki.php">Dodaj wydatek</a>
+						<div class="nav-link active">Dodaj wydatek</div>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="bilans.html">Przeglądaj bilans</a>
+						<a class="nav-link" href="balance.html">Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Ustawienia</a>
@@ -83,7 +83,7 @@
 								
 										<label class="col-form-label"> Data wydatku:</label><input type="date" name="data" value="<?php echo date('Y-m-d'); ?>" class="col-form-label" style="margin-top: 5px; margin-right: 0px;">
 									
-										<label for="płatność" class="col-form-label"> Sposób płatności: </label>
+										<label for="płatność" class="col-form-label" style="margin-top: 5px;"> Sposób płatności: </label>
 										<select id="płatność" name="płatność" style="margin-top: 5px; margin-right: 0px;">
 											<option value="g" selected>Gotówka</option>
 											<option value="d">Karta debetowa</option>

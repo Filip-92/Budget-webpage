@@ -75,16 +75,6 @@
 		
 		try
 		{
-			//$pdo = @new pdo($host, $db_user, $db_password, $db_name);
-			//$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-			//$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-  
-			//if ($pdo>connect_errno!=0)
-			//{
-			//	throw new Exception(mysqli_connect_errno());
-			//}
-			//else
-			//{
 				//Czy email już istnieje?
 				$sql_email = 'SELECT id FROM uzytkownicy WHERE email=:email';
 				$query = $db->prepare($sql_email);
@@ -93,9 +83,6 @@
 				
 				$user = $query->fetch();
 				
-				//if (!$rezultat) throw new Exception($pdo->error);
-				
-				//$ile_takich_maili = $rezultat->num_rows;
 				if ($user>0)
 				{
 					$wszystko_OK=false;
@@ -110,9 +97,6 @@
 				
 				$login_user = $query_login->fetch();
 				
-				//if (!$rezultat) throw new Exception($pdo->error);
-				
-				//$ile_takich_loginow = $rezultat->num_rows;
 				if ($login_user)
 				{
 					$wszystko_OK=false;
@@ -125,22 +109,13 @@
 					
 						$sql_user = 'INSERT INTO uzytkownicy VALUES (NULL, :login, :password, :email)';
 						
-						//if (!$rezultat) throw new Exception($pdo->error);
 						
 						$query_user = $db->prepare($sql_user);
 						
-						//if ($rezultat)
-						//{
 						$query_user->bindValue(':login', $login, PDO::PARAM_STR);
 						$query_user->bindValue(':password', $password_hash, PDO::PARAM_STR);
 						$query_user->bindValue(':email', $email, PDO::PARAM_STR);
 						$query_user->execute();
-						 
-						/*$sql_incomes = "INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT uzytkownicy.id, incomes_category_default.name FROM uzytkownicy, incomes_category_default WHERE uzytkownicy.email= :email";
-						
-						$query_incomes = $db->prepare($sql_incomes);
-						$query_incomes->bindValue(':email', $email, PDO::PARAM_STR);
-						$query_incomes->execute();*/
 						
 						$sql_test = 'INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT uzytkownicy.id, incomes_category_default.name FROM uzytkownicy, incomes_category_default WHERE uzytkownicy.email= :email';
 						
@@ -164,13 +139,7 @@
 						
 						$_SESSION['udanarejestracja']=true;
 						header('Location: logowanie.php');
-						//}
-						//else
-						//{
-						//throw new Exception($pdo->error);
-						//}
 				}
-			//}
 		
 		}
 		catch(Exception $e)
