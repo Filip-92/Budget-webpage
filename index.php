@@ -53,7 +53,7 @@
 						<a class="nav-link" href="expenses.php">Dodaj wydatek</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="balance.html">Przeglądaj bilans</a>
+						<a class="nav-link" href="balance.php">Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Ustawienia</a>
@@ -85,7 +85,7 @@
 				
 						<header>
 		
-							<h1> Cześć <?php echo '<span style="color:green">'.$_SESSION['user'].'</span>' ?>, witaj w aplikacji służącej do zarządzania wydatkami!</h1>
+							<h1> Cześć <?php echo '<span style="color:green">'.$_SESSION['user'].'</span>'; ?>, witaj w aplikacji służącej do zarządzania wydatkami!</h1>
 							<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum blandit sem, non condimentum quam malesuada in. Maecenas ornare dignissim velit, vitae eleifend est accumsan eu. Sed tempor lacus nunc, sed eleifend mi tempus a. Cras dui nunc, sollicitudin in est non, bibendum ullamcorper sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut volutpat luctus mauris non sollicitudin. Praesent ac quam non sapien malesuada commodo. Nam vitae nulla et dolor luctus blandit. Proin nec semper lectus, quis aliquam orci.</p>
 						
 						</header>

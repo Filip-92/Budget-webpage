@@ -1,88 +1,3 @@
-<?php
-
-	session_start();
-	
-	if (!isset($_SESSION['zalogowany']))
-	{
-		header('Location: index.html');
-		exit();
-	}
-	
-	$user_id = $_SESSION['id'];
-
-	if (isset($_POST['kwota']))
-	{
-		$wszystko_OK=true;
-		
-		$amount = $_POST['kwota'];
-		if($amount<0)
-		{
-		$amount = $amount*(-1);
-		}
-		if(!is_numeric($amount))
-		{
-			$wszystko_OK=false;
-			$_SESSION['e_amount']="Musisz podać wartość będącą liczbą arabską";
-			echo "Muka";
-		}
-		$amount = str_replace(',','.',$amount);
-		
-		$date = $_POST['data'];
-		$today_date = date('Y-m-d');
-		if($date > $today_date)
-		{
-			$wszystko_OK=false;
-			$_SESSION['e_date']="Podaj datę nie wykraczającą w przyszłość poza dzień dzisiejszy";
-			echo "Muka";
-		}
-		$income_category = $_POST['kategoria'];
-		$comment = $_POST['komentarz'];
-		
-		require_once "database.php";
-		
-		try
-		{
-			//$_SESSION['kwota'] = $wiersz['kwota'];
-			//$_SESSION['data'] = $wiersz['data'];
-			//$_SESSION['kategoria'] = $wiersz['kategoria'];
-			//$_SESSION['komentarz'] = $wiersz['komentarz'];
-			if($wszystko_OK==true)
-			{
-				$sql_check_category_id = 'SELECT id FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name = :kategoria';
-				$query_category_id = $db->prepare($sql_check_category_id);
-				$query_category_id->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-				$query_category_id->bindValue(':kategoria', $income_category, PDO::PARAM_STR);
-				$query_category_id->execute();
-				
-				$income_id = $query_category_id->fetch();
-						
-				$sql_income = "INSERT INTO incomes (id, user_id, income_category_assigned_to_user_id, amount, date_of_income, income_comment) VALUES (NULL, ':user_id', ':income_id', ':kwota', ':data', ':komentarz')";
-			
-				$query_incomes2 = $db->prepare($sql_income);
-				$query_incomes2->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-				$query_incomes2->bindValue(':income_id', $income_id, PDO::PARAM_STR);
-				$query_incomes2->bindValue(':kwota', $kwota, PDO::PARAM_STR);
-				$query_incomes2->bindValue(':data', $date, PDO::PARAM_STR);
-				$query_incomes2->bindValue(':komentarz', $comment, PDO::PARAM_STR);
-				$query_incomes2->execute();
-				
-				var_dump($query_incomes2->fetchAll());
-					
-				$_SESSION['dodanoprzychod']=true;
-				echo "Nowy przychód dodany";
-				header('Location: index.php');
-			}
-		}
-		catch(Exception $e)
-		{
-			echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o dodanie przychodu w innym terminie!</span>';
-			//echo '<br />Informacja developerska: '.$e;
-		}
-		
-	}
-
-?>
-
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -126,7 +41,7 @@
 						<a class="nav-link" href="expenses.php">Dodaj wydatek</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="balance.html">Przeglądaj bilans</a>
+						<a class="nav-link" href="balance.php">Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Ustawienia</a>
@@ -158,45 +73,65 @@
 				
 							<header>
 			
-								<form action="index.php" method="post">
+								<form action="add_income.php" method="post">
 								
 									<h1 class="mt-3">Dodaj przychód:</h1>
 														
 									<div id="formId" class="justify-content-center row">	
 									
-										<label class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="kwota" step='0.01' style="margin-right: 0px;">
+										<label class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="income_amount" step='0.01' style="margin-right: 0px;">
 										
 										<?php
 			
-										if (isset($_SESSION['e_amount']))
+										if (isset($_SESSION['e_income_amount']))
 										{
-											echo '<div class="error">'.$_SESSION['e_amount'].'</div>';
-											unset($_SESSION['e_amount']);
+											echo '<div class="error">'.$_SESSION['e_income_amount'].'</div>';
+											unset($_SESSION['e_income_amount']);
 										}
 			
 										?>
 										
-										<label class="col-form-label"> Data przychodu:</label><input type="date" name="data" value="<?php echo date('Y-m-d'); ?>" style="margin-top: 5px; margin-right: 0px;">
+										<label class="col-form-label"> Data przychodu:</label><input type="date" name="income_date" value="<?php echo date('Y-m-d'); ?>" style="margin-top: 5px; margin-right: 0px;">
 										
 										<?php
 			
-										if (isset($_SESSION['e_date']))
+										if (isset($_SESSION['e_income_date']))
 										{
-											echo '<div class="error">'.$_SESSION['e_date'].'</div>';
-											unset($_SESSION['e_date']);
+											echo '<div class="error">'.$_SESSION['e_income_date'].'</div>';
+											unset($_SESSION['e_income_date']);
 										}
 			
 										?>
 										
 										<label for="kategoria" class="col-form-label" style="margin-top: 5px;"> Kategoria: </label>
-										<select id="kategoria" name="kategoria" style="margin-right: 0px;">
-											<option value="w" selected>Wynagrodzenie</option>
-											<option value="ob">Odsetki bankowe</option>
-											<option value="s">Sprzedaż na allegro</option>
-											<option value="i">Inne</option>
+										<select id="kategoria" name="income_category" style="margin-right: 0px;">
+											<option value="Wynagrodzenie" selected>Wynagrodzenie</option>
+											<option value="Odsetki bankowe">Odsetki bankowe</option>
+											<option value="Sprzedaż na allegro">Sprzedaż na allegro</option>
+											<option value="Inne">Inne</option>
 										</select>
+										
+										<?php
+			
+										if (isset($_SESSION['e_income_category']))
+										{
+											echo '<div class="error">'.$_SESSION['e_income_category'].'</div>';
+											unset($_SESSION['e_income_category']);
+										}
+			
+										?>
 									
-										<label id="komentarz" class="col-form-label" >Komentarz (opcjonalnie):</label><input type="text" placeholder="inne" onfocus="this.placeholder=' ' " onblur="this.placeholder='inne' " name="komentarz" style="margin-top: 5px; margin-right: 0px;">
+										<label id="komentarz" class="col-form-label" >Komentarz (opcjonalnie):</label><input type="text" placeholder="inne" onfocus="this.placeholder=' ' " onblur="this.placeholder='inne' " name="income_comment" style="margin-top: 5px; margin-right: 0px;">
+										
+										<?php
+			
+										if (isset($_SESSION['e_income_comment']))
+										{
+											echo '<div class="error">'.$_SESSION['e_income_comment'].'</div>';
+											unset($_SESSION['e_income_comment']);
+										}
+			
+										?>
 										
 									</div>
 									

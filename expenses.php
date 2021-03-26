@@ -41,7 +41,7 @@
 						<div class="nav-link active">Dodaj wydatek</div>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="balance.html">Przeglądaj bilans</a>
+						<a class="nav-link" href="balance.php">Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Ustawienia</a>
@@ -73,45 +73,95 @@
 				
 							<header>
 			
-								<form action="index.html" method="post">
+								<form action="add_expense.php" method="post">
 								
 									<h1 class="mt-3">Dodaj wydatek:</h1>
 						
 									<div id="formId" class="justify-content-center row">
 									
-										<label class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="kwota" step="0.01"	style="margin-right: 0px;">
+										<label class="col-form-label" >Kwota: </label><input id="kategoria" type="number" placeholder="21.37" onfocus="this.placeholder=' ' " onblur="this.placeholder='21.37' " name="expense_amount" step="0.01"	style="margin-right: 0px;">
+										
+										<?php
+			
+										if (isset($_SESSION['e_expense_amount']))
+										{
+											echo '<div class="error">'.$_SESSION['e_expense_amount_amount'].'</div>';
+											unset($_SESSION['e_expense_amount_amount']);
+										}
+			
+										?>
 								
-										<label class="col-form-label"> Data wydatku:</label><input type="date" name="data" value="<?php echo date('Y-m-d'); ?>" class="col-form-label" style="margin-top: 5px; margin-right: 0px;">
+										<label class="col-form-label"> Data wydatku:</label><input type="date" name="expense_date" value="<?php echo date('Y-m-d'); ?>" class="col-form-label" style="margin-top: 5px; margin-right: 0px;">
+										
+										<?php
+			
+										if (isset($_SESSION['e_expense_date']))
+										{
+											echo '<div class="error">'.$_SESSION['e_expense_date'].'</div>';
+											unset($_SESSION['e_expense_date']);
+										}
+			
+										?>
 									
 										<label for="płatność" class="col-form-label" style="margin-top: 5px;"> Sposób płatności: </label>
-										<select id="płatność" name="płatność" style="margin-top: 5px; margin-right: 0px;">
-											<option value="g" selected>Gotówka</option>
-											<option value="d">Karta debetowa</option>
-											<option value="k">Karta kredytowa</option>
+										<select id="płatność" name="payment_method" style="margin-top: 5px; margin-right: 0px;">
+											<option value="Gotówka" selected>Gotówka</option>
+											<option value="Karta debetowa">Karta debetowa</option>
+											<option value="Karta kredytowa">Karta kredytowa</option>
 										</select>
+										
+										<?php
+			
+										if (isset($_SESSION['e_payment_method']))
+										{
+											echo '<div class="error">'.$_SESSION['e_payment_method'].'</div>';
+											unset($_SESSION['e_payment_method']);
+										}
+			
+										?>
 								
 										<label for="kategoria" class="col-form-label"> Kategoria: </label>
-										<select id="kategoria" name="kategoria" style="margin-top: 5px; margin-right: 0px;">
-												<option value="j" selected>Jedzenie</option>
-												<option value="m">Mieszkanie</option>
-												<option value="t">Transport</option>
-												<option value="tk">Telekomunikacja</option>
-												<option value="oz">Opieka zdrowotna</option>
-												<option value="u">Ubranie</option>
-												<option value="h">Higiena</option>
-												<option value="dz">Dzieci</option>
-												<option value="r">Rozrywka</option>
-												<option value="w">Wycieczka</option>
-												<option value="s">Szkolenia</option>
-												<option value="k">Książki</option>
-												<option value="o">Oszczędności</option>
-												<option value="e">Emerytura</option>
-												<option value="sd">Spłata długów</option>
-												<option value="d">Darowizna</option>
-												<option value="iw">Inne wydatki</option>
+										<select id="kategoria" name="expense_category" style="margin-top: 5px; margin-right: 0px;">
+												<option value="Jedzenie" selected>Jedzenie</option>
+												<option value="Mieszkanie">Mieszkanie</option>
+												<option value="Transport">Transport</option>
+												<option value="Telekomunikacja">Telekomunikacja</option>
+												<option value="Opieka zdrowotna">Opieka zdrowotna</option>
+												<option value="Ubranie">Ubranie</option>
+												<option value="Higiena">Higiena</option>
+												<option value="Dzieci">Dzieci</option>
+												<option value="Rozrywka">Rozrywka</option>
+												<option value="Wycieczka">Wycieczka</option>
+												<option value="Szkolenia">Szkolenia</option>
+												<option value="Książki">Książki</option>
+												<option value="Oszczędności">Oszczędności</option>
+												<option value="Emerytura">Emerytura</option>
+												<option value="Spłata długów">Spłata długów</option>
+												<option value="Darowizna">Darowizna</option>
+												<option value="Inne wydatki">Inne wydatki</option>
 										</select>
+										
+										<?php
+			
+										if (isset($_SESSION['e_expense_category']))
+										{
+											echo '<div class="error">'.$_SESSION['e_expense_category'].'</div>';
+											unset($_SESSION['e_expense_category']);
+										}
+			
+										?>
 									
-										<label for="komentarz" class="col-form-label">Komentarz (opcjonalnie):</label><input id="komentarz" type="text" placeholder="inne" onfocus="this.placeholder=' ' " onblur="this.placeholder='inne'" class="col-form" style="margin-top: 5px; margin-right: 0px;">
+										<label for="komentarz" class="col-form-label">Komentarz (opcjonalnie):</label><input id="komentarz" type="text" placeholder="inne" onfocus="this.placeholder=' ' " onblur="this.placeholder='inne'" class="col-form" name="expense_comment" style="margin-top: 5px; margin-right: 0px;">
+										
+										<?php
+			
+										if (isset($_SESSION['e_expense_comment']))
+										{
+											echo '<div class="error">'.$_SESSION['e_expense_comment_comment'].'</div>';
+											unset($_SESSION['e_expense_comment']);
+										}
+			
+										?>
 									
 									</div>
 						

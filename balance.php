@@ -1,3 +1,15 @@
+<?php
+
+	session_start();
+	
+	if (!isset($_SESSION['zalogowany']))
+	{
+		header('Location: index.html');
+		exit();
+	}
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -41,7 +53,7 @@
 						<a class="nav-link" href="expenses.php">Dodaj wydatek</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="balance.html">Przeglądaj bilans</a>
+						<div class="nav-link active">Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Ustawienia</a>
@@ -75,12 +87,12 @@
 		
 								<h1 class="mt-3">Bilans z wybranego okresu:</h1>
 			
-									<form action="strona_główna.html" method="post">
+									<form action="balance_query.php" method="post">
 
 										<div id="formId" class="justify-content-center row">
 								
 										<label class="col-form-label">Okres zdefiniowany:</label>
-										<select id="płatność" name="płatność" class="col-lg-12">
+										<select id="płatność" name="balance_period" class="col-lg-12">
 												<option value="bm" selected>Bieżący miesiąc</option>
 												<option value="pm">Poprzedni miesiąc</option>
 												<option value="br">Bieżący rok</option>
@@ -88,25 +100,57 @@
 										</select>
 							
 										<label class="col-form-label" style="text-decoration: underline; color: green;">Zakres dat:</label>
-										<label class="col-form-label">Od:</label><input type="date" name="dzien" class="mx-2 col-lg-6">
-										<label class="col-form-label">Do:</label><input type="date" name="dzien" class="mx-2 mb-5 col-lg-6">
+										<label class="col-form-label">Od:</label><input type="date" name="starting_date" class="mx-2 col-lg-6">
+										<label class="col-form-label">Do:</label><input type="date" name="ending_date" class="mx-2 mb-5 col-lg-6">
 						
 										</div>
 										
+											<div class="justify-content-center">
+													<input type="submit" value="Filtruj" class="col-form-label" style="margin-top: -20px; margin-bottom: 20px;">
+											</div>
+										
 									</form>
 	
-									<table width="80%" align="center">
+									<table width="60%" align="center">
 										<tr>
 											<td colspan="3" align="center" bgcolor="black">
 												</td>
 										</tr>
 										<tr>
-											<td width="80%" align="top">
-						<h3>Przychody</h3> 
-			
-						<div class="category">Wynagrodzenie:</div><div class="kategoriap"><div class="columnp1"><h4>Rodzaj przychodu: </h4></div><div class="columnp2"> <h4>Wysokość przychodu:</h4></div><div class="columnp3"> <h4>Data: </h4></div></div><div style="clear:both;"></div>
-						
-						<div class="category">Odsetki bankowe:</div><div class="kategoriap"><div class="columnp1"><h4>Rodzaj przychodu: </h4></div><div class="columnp2"> <h4>Wysokość przychodu:</h4></div><div class="columnp3"> <h4>Data: </h4></div></div><div style="clear:both;"></div>
+											<td width="60%" align="top">
+											
+										<h3>Przychody</h3> 
+							
+										<div class="category">Wynagrodzenie:</div>
+											<div class="kategoriap">
+												<div class="columnp1">
+													<h4>Rodzaj przychodu: </h4>
+												</div>
+												<div class="columnp2"> 
+													<h4>Wysokość przychodu:</h4>
+												</div>
+													<div class="columnp3"> 
+														<h4>Data: </h4>
+													</div>
+											</div>
+											<div style="clear:both;">
+											</div>
+										
+										<div class="category">Odsetki bankowe:</div>
+											<div class="kategoriap">
+												<div class="columnp1">
+													<h4>Wysokość przychodu: </h4>
+													<?php echo '<span style="color:green">'.$_SESSION['income_amount'].'</span>'; ?>
+												</div>
+												<div class="columnp2"> 
+													<h4>Data:</h4>
+												</div>
+												<div class="columnp3"> 
+													<h4>Komentarz: </h4>
+												</div>
+											</div>
+											<div style="clear:both;">
+											</div>
 						
 						<div class="category">Sprzedaż na allegro:</div><div class="kategoriap"><div class="columnp1"><h4>Rodzaj przychodu: </h4></div><div class="columnp2"> <h4>Wysokość przychodu:</h4></div><div class="columnp3"> <h4>Data: </h4></div></div><div style="clear:both;"></div>
 						
