@@ -92,7 +92,7 @@
 										<div id="formId" class="justify-content-center row">
 								
 										<label class="col-form-label">Okres zdefiniowany:</label>
-										<select id="płatność" name="date_of_transaction" class="col-lg-12">
+										<select id="płatność" name="date_of_income" class="col-lg-12">
 												<option value="current_date" selected>Bieżący miesiąc</option>
 												<option value="pm">Poprzedni miesiąc</option>
 												<option value="br">Bieżący rok</option>
@@ -118,45 +118,25 @@
 										</tr>
 										<tr>
 											<td width="60%" align="top">
+											
+										<h3>Przychody</h3> 
 							
-										<h3>Przychody</h3>
-											<div class="category">
-													<div class="category_transaction_category">
-															<h4>Kategoria: </h4>
-													</div>
-													<div class="category_amount">
-															<h4>Wysokość przychodu: </h4>
-													</div>
-													<div class="category_date">
-															<h4>Data:</h4>
-													</div>
-													<div class="category_comment">
-															<h4>Komentarz: </h4>
-													</div>
-											</div>
+										<div class="category">Wynagrodzenie:</div>
 											<div class="kategoriap">
-												<div class="column_incomes_category">
+												<div class="columnp1">
+													<h4>Wysokość przychodu: </h4>
 															<?php
-																echo $_SESSION['month_incomes1']; 
+															   echo $_SESSION['incomes_details_amount'];
 															?>
 												</div>
-												<div class="column_incomes_amount">
-															<?php
-																$result_details_of_incomes = $_SESSION['result_details_of_incomes'];
-																$incomes_details = $_SESSION['income_details'];
-															
-																foreach($result_details_of_incomes  as $incomes_details)
-																{
-																	echo $_SESSION['incomes_details_amount'];
-																}
-															?>
-												</div>
-												<div class="column_incomes_date"> 
+												<div class="columnp2"> 
+													<h4>Data:</h4>
 															<?php
 															   echo $_SESSION['incomes_details_date'];
 															?>
 												</div>
-													<div class="column_incomes_comment"> 
+													<div class="columnp3"> 
+														<h4>Komentarz: </h4>
 															<?php
 															   echo $_SESSION['incomes_details_comment'];
 															?>
@@ -164,71 +144,54 @@
 											</div>
 											<div style="clear:both;">
 											</div>
-											<h6 style="float: left;">Suma:
-											<?php 
-											echo $_SESSION['month_incomes2']; 
-											?>
-											</h6>
+										
+										<div class="category">Odsetki bankowe:</div>
+											<div class="kategoriap">
+												<div class="columnp1">
+													<h4>Wysokość przychodu: </h4>
+												</div>
+												<div class="columnp2"> 
+													<h4>Data:</h4>
+												</div>
+												<div class="columnp3"> 
+													<h4>Komentarz: </h4>
+												</div>
+											</div>
 											<div style="clear:both;">
 											</div>
-										
-											</td> 
+						
+						<div class="category">Sprzedaż na allegro:</div><div class="kategoriap"><div class="columnp1"><h4>Wysokość przychodu: </h4></div><div class="columnp2"> <h4>Data:</h4></div><div class="columnp3"> <h4>Komentarz: </h4></div></div><div style="clear:both;"></div>
+						
+						<div class="category">Inne:</div><div class="kategoriap"><div class="columnp1"><h4>Wysokość przychodu: </h4></div><div class="columnp2"> <h4>Data:</h4></div><div class="columnp3"> <h4>Komentarz: </h4></div></div><div style="clear:both;"></div>
+						</td> 
 				</tr>
 				<tr>
 						<td colspan="3" align="center" bgcolor="black">
 						</td>
 				</tr>
-						<td width="60%" align="top">
+						<td width="640" valign="top">
+						<h3>Wydatki</h3> 
 			
-						<h3>Wydatki</h3>
-											<div class="category">
-													<div class="category_transaction_category">
-															<h4>Kategoria: </h4>
-													</div>
-													<div class="category_amount">
-															<h4>Wysokość przychodu: </h4>
-													</div>
-													<div class="category_date">
-															<h4>Data:</h4>
-													</div>
-													<div class="category_comment">
-															<h4>Komentarz: </h4>
-													</div>
-											</div>
-							<div class="kategoriaw">
-								<div class="column_incomes_category">
-											<?php
-												echo $_SESSION['month_expenses1']; 
-											?>
-								</div>
-								<div class="column_incomes_amount">
-											<?php
-											   echo $_SESSION['expenses_details_amount'];
-											?>
-								</div>
-								<div class="column_incomes_date"> 
-											<?php
-											   echo $_SESSION['expenses_details_date'];
-											?>
-								</div>
-									<div class="column_incomes_comment"> 
-											<?php
-											   echo $_SESSION['expenses_details_comment'];
-											?>
-									</div>
-							</div>
-							<div style="clear:both;">
-							</div>
-							<h6 style="float: left;">Suma:
-									<?php 
-										echo $_SESSION['month_expenses2']; 
-									?>
-							</h6>
-							<div style="clear:both;">
-							</div>
-										
-						</td> 
+						<div class="category">Jedzenie:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Mieszkanie:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Transport:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Telekomunikacja:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Opieka zdrowotna:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Ubranie:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Higiena:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Dzieci:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Rozrywka:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Wycieczka:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Szkolenia:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Książki:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Oszczędności:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Emerytura:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Spłata długów:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Darowizna:<div class="kategoriaw"><br /></div></div>
+						<div class="category">Inne wydatki:<div class="kategoriaw"><br /></div></div>
 						
+						</td> 
+		</tr>
 	</table>
 	
 	</header>

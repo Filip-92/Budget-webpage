@@ -224,6 +224,12 @@ h3
 	color: #39a5f1;
 }
 
+.category
+{
+	font-size: 20px;
+	color: green;
+}
+
 input[type=text],
 input[type=date],
 input[type=number]
@@ -349,50 +355,14 @@ input:focus:-ms-input-placeholder
 	color: #428C42;
 }
 
-.category
-{
-	margin-bottom: 0px !important;
-	height: 20px;
-	background-color: white;
-	border: 1px solid #808080;
-	border-radius: 8px 8px 0px 0px;
-}
-
-.category_transaction_category
-{
-	float: left;
-	width: 25% !important;
-	border-right: 1px solid black;
-}
-
-.category_amount
-{
-	float: left;
-	width: 20%;
-	border-right: 1px solid black;
-}
-
-.category_date
-{
-	float: left;
-	width: 20%;
-	border-right: 1px solid black;
-}
-
-.category_comment
-{
-	float: left;
-	width: 35% !important;
-}
-
 .kategoriap
 {
-	margin-top: 0px !important;
+	margin-top: 10px;
 	margin-bottom: 40px;
-	height: 780px;
+	height: 200px;
 	background-color: #EEEEEE;
 	border: 1px solid #808080;
-	border-radius: 0px 0px 8px 8px;
+	border-radius: 8px;
 	overflow-y: auto;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
@@ -405,19 +375,20 @@ input:focus:-ms-input-placeholder
 
 .kategoriaw
 {
+	margin-top: 10px;
 	margin-bottom: 40px;
-	height: 780px;
+	height: 200px;
 	background-color: #EEEEEE;
 	border: 1px solid #808080;
-	border-radius: 0px 0px 8px 8px;
-	overflow-y: auto;
-	-ms-overflow-style: none;
-	scrollbar-width: none;
+	border-radius: 8px;
 }
 
-.kategoriaw::-webkit-scrollbar
+.columnp1
 {
-	display: none;
+	float: left;
+	width: 20%;
+	height: 200px;
+	border-right: 1px solid black;
 }
 
 h4
@@ -430,35 +401,19 @@ h4
 	border-radius: 8px 8px 0px 0px;
 }
 
-.column_incomes_category
-{
-	float: left;
-	width: 25%;
-	height: 800px;
-	border-right: 1px solid black;
-}
-
-.column_incomes_amount
+.columnp2
 {
 	float: left;
 	width: 20%;
-	height: 800px;
+	height: 200px;
 	border-right: 1px solid black;
 }
 
-.column_incomes_date
+.columnp3
 {
 	float: left;
-	width: 20%;
-	height: 800px;
-	border-right: 1px solid black;
-}
-
-.column_incomes_comment
-{
-	float: left;
-	height: 800px;
-	width: 35% !important;
+	height: 200px;
+	width: 60% !important;
 }
 
 footer
