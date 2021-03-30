@@ -87,13 +87,13 @@
 		
 								<h1 class="mt-3">Bilans z wybranego okresu:</h1>
 			
-									<form action="balance_query.php" method="post">
+									<form action="balance.php" method="post">
 
 										<div id="formId" class="justify-content-center row">
 								
 										<label class="col-form-label">Okres zdefiniowany:</label>
-										<select id="płatność" name="balance_period" class="col-lg-12">
-												<option value="bm" selected>Bieżący miesiąc</option>
+										<select id="płatność" name="date_of_income" class="col-lg-12">
+												<option value="current_date" selected>Bieżący miesiąc</option>
 												<option value="pm">Poprzedni miesiąc</option>
 												<option value="br">Bieżący rok</option>
 												<option value="n">Niestandardowy</option>
@@ -124,13 +124,22 @@
 										<div class="category">Wynagrodzenie:</div>
 											<div class="kategoriap">
 												<div class="columnp1">
-													<h4>Rodzaj przychodu: </h4>
+													<h4>Wysokość przychodu: </h4>
+															<?php
+															   echo $_SESSION['incomes_details_amount'];
+															?>
 												</div>
 												<div class="columnp2"> 
-													<h4>Wysokość przychodu:</h4>
+													<h4>Data:</h4>
+															<?php
+															   echo $_SESSION['incomes_details_date'];
+															?>
 												</div>
 													<div class="columnp3"> 
-														<h4>Data: </h4>
+														<h4>Komentarz: </h4>
+															<?php
+															   echo $_SESSION['incomes_details_comment'];
+															?>
 													</div>
 											</div>
 											<div style="clear:both;">
@@ -140,7 +149,6 @@
 											<div class="kategoriap">
 												<div class="columnp1">
 													<h4>Wysokość przychodu: </h4>
-													<?php echo '<span style="color:green">'.$_SESSION['income_amount'].'</span>'; ?>
 												</div>
 												<div class="columnp2"> 
 													<h4>Data:</h4>
@@ -152,9 +160,9 @@
 											<div style="clear:both;">
 											</div>
 						
-						<div class="category">Sprzedaż na allegro:</div><div class="kategoriap"><div class="columnp1"><h4>Rodzaj przychodu: </h4></div><div class="columnp2"> <h4>Wysokość przychodu:</h4></div><div class="columnp3"> <h4>Data: </h4></div></div><div style="clear:both;"></div>
+						<div class="category">Sprzedaż na allegro:</div><div class="kategoriap"><div class="columnp1"><h4>Wysokość przychodu: </h4></div><div class="columnp2"> <h4>Data:</h4></div><div class="columnp3"> <h4>Komentarz: </h4></div></div><div style="clear:both;"></div>
 						
-						<div class="category">Inne:</div><div class="kategoriap"><div class="columnp1"><h4>Rodzaj przychodu: </h4></div><div class="columnp2"> <h4>Wysokość przychodu:</h4></div><div class="columnp3"> <h4>Data: </h4></div></div><div style="clear:both;"></div>
+						<div class="category">Inne:</div><div class="kategoriap"><div class="columnp1"><h4>Wysokość przychodu: </h4></div><div class="columnp2"> <h4>Data:</h4></div><div class="columnp3"> <h4>Komentarz: </h4></div></div><div style="clear:both;"></div>
 						</td> 
 				</tr>
 				<tr>

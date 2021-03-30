@@ -363,6 +363,14 @@ input:focus:-ms-input-placeholder
 	background-color: #EEEEEE;
 	border: 1px solid #808080;
 	border-radius: 8px;
+	overflow-y: auto;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.kategoriap::-webkit-scrollbar
+{
+	display: none;
 }
 
 .kategoriaw
@@ -381,7 +389,6 @@ input:focus:-ms-input-placeholder
 	width: 20%;
 	height: 200px;
 	border-right: 1px solid black;
-	overflow: scroll;
 }
 
 h4

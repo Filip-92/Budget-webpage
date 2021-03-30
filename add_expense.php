@@ -64,7 +64,7 @@
 		{
 			if($wszystko_OK==true)
 			{
-				$user_id = $_SESSION['id'];
+				$user_id = $_SESSION['logged_id'];
 				
 				require_once "database.php";
 				

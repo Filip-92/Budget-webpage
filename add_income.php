@@ -8,7 +8,7 @@
 		exit();
 	}
 	
-	$user_id = $_SESSION['id'];
+	$user_id = $_SESSION['logged_id'];
 
 	if (isset($_POST['income_amount']))
 	{
