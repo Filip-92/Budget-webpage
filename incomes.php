@@ -41,7 +41,7 @@
 						<a class="nav-link" href="expenses.php">Dodaj wydatek</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="balance.php">Przeglądaj bilans</a>
+						<a class="nav-link" href="balance_default.php">Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Ustawienia</a>

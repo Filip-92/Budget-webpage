@@ -87,26 +87,44 @@
 		
 								<h1 class="mt-3">Bilans z wybranego okresu:</h1>
 			
-									<form action="balance.php" method="post">
+									<form action="balance_query.php" method="post">
 
 										<div id="formId" class="justify-content-center row">
 								
 										<label class="col-form-label">Okres zdefiniowany:</label>
 										<select id="płatność" name="date_of_transaction" class="col-lg-12">
-												<option value="current_date" selected>Bieżący miesiąc</option>
-												<option value="pm">Poprzedni miesiąc</option>
-												<option value="br">Bieżący rok</option>
-												<option value="n">Niestandardowy</option>
+												<option value="current_month">Bieżący miesiąc</option>
+												<option value="previous_month" selected>Poprzedni miesiąc</option>
+												<option value="current_year">Bieżący rok</option>
+												<option value="custom_date">Niestandardowy</option>
 										</select>
-							
-										<label class="col-form-label" style="text-decoration: underline; color: green;">Zakres dat:</label>
-										<label class="col-form-label">Od:</label><input type="date" name="starting_date" class="mx-2 col-lg-6">
-										<label class="col-form-label">Do:</label><input type="date" name="ending_date" class="mx-2 mb-5 col-lg-6">
+										
+										<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+										  <div class="modal-dialog" role="document">
+											<div class="modal-content">
+											  <div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="custom_date">Wybierz zakres dat</h4>
+											  </div>
+											  <div class="modal-body">
+													<div id="formId" class="justify-content-center row">
+														<label class="col-form-label" style="text-decoration: underline; color: green;">Zakres dat:</label>
+														<label class="col-form-label">Od:</label><input type="date" name="starting_date">
+														<label class="col-form-label">Do:</label><input type="date" name="ending_date">
+													</div>
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+												<button type="submit" class="btn btn-success">Wybierz zakres</button>
+											  </div>
+											</div><!-- /.modal-content -->
+										  </div><!-- /.modal-dialog -->
+										</div><!-- /.modal -->
 						
 										</div>
 										
 											<div class="justify-content-center">
-													<input type="submit" value="Filtruj" class="col-form-label" style="margin-top: -20px; margin-bottom: 20px;">
+													<input type="submit" value="Filtruj" class="col-form-label" style="margin-top: 20px; margin-bottom: 20px;">
 											</div>
 										
 									</form>
@@ -137,28 +155,22 @@
 											<div class="kategoriap">
 												<div class="column_incomes_category">
 															<?php
-																echo $_SESSION['month_incomes1']; 
+																echo $_SESSION['previous_month_incomes1'];
 															?>
 												</div>
 												<div class="column_incomes_amount">
 															<?php
-																$result_details_of_incomes = $_SESSION['result_details_of_incomes'];
-																$incomes_details = $_SESSION['income_details'];
-															
-																foreach($result_details_of_incomes  as $incomes_details)
-																{
-																	echo $_SESSION['incomes_details_amount'];
-																}
+																	echo $_SESSION['previous_month_incomes_details_amount'];
 															?>
 												</div>
 												<div class="column_incomes_date"> 
 															<?php
-															   echo $_SESSION['incomes_details_date'];
+															   echo $_SESSION['previous_month_incomes_details_date'];
 															?>
 												</div>
 													<div class="column_incomes_comment"> 
 															<?php
-															   echo $_SESSION['incomes_details_comment'];
+															   echo $_SESSION['previous_month_incomes_details_comment'];
 															?>
 													</div>
 											</div>
@@ -166,7 +178,7 @@
 											</div>
 											<h6 style="float: left;">Suma:
 											<?php 
-											echo $_SESSION['month_incomes2']; 
+											echo $_SESSION['previous_month_incomes2']; 
 											?>
 											</h6>
 											<div style="clear:both;">
@@ -198,22 +210,22 @@
 							<div class="kategoriaw">
 								<div class="column_incomes_category">
 											<?php
-												echo $_SESSION['month_expenses1']; 
+												echo $_SESSION['previous_month_expenses1'];
 											?>
 								</div>
 								<div class="column_incomes_amount">
 											<?php
-											   echo $_SESSION['expenses_details_amount'];
+											   echo $_SESSION['previous_month_expenses_details_amount'];
 											?>
 								</div>
 								<div class="column_incomes_date"> 
 											<?php
-											   echo $_SESSION['expenses_details_date'];
+											   echo $_SESSION['previous_month_expenses_details_date'];
 											?>
 								</div>
 									<div class="column_incomes_comment"> 
 											<?php
-											   echo $_SESSION['expenses_details_comment'];
+											   echo $_SESSION['previous_month_expenses_details_comment'];
 											?>
 									</div>
 							</div>
@@ -221,7 +233,7 @@
 							</div>
 							<h6 style="float: left;">Suma:
 									<?php 
-										echo $_SESSION['month_expenses2']; 
+										echo $_SESSION['previous_month_expenses2']; 
 									?>
 							</h6>
 							<div style="clear:both;">
@@ -259,6 +271,8 @@
         crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+		
+		<script src="modal.js"></script>
 
 </body>
 </html>

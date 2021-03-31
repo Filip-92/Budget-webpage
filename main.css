@@ -351,7 +351,7 @@ input:focus:-ms-input-placeholder
 
 .category
 {
-	margin-bottom: 0px !important;
+	margin-bottom: -5px !important;
 	height: 20px;
 	background-color: white;
 	border: 1px solid #808080;
@@ -387,7 +387,7 @@ input:focus:-ms-input-placeholder
 
 .kategoriap
 {
-	margin-top: 0px !important;
+	margin-top: -5px !important;
 	margin-bottom: 40px;
 	height: 780px;
 	background-color: #EEEEEE;
