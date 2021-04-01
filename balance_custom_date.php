@@ -7,7 +7,7 @@
 		header('Location: index.html');
 		exit();
 	}
-
+	
 ?>
 
 <!DOCTYPE HTML>
@@ -111,7 +111,7 @@
 													exit();
 													}
 												?>
-												<option value="current_year" selected>Bieżący rok</option>
+												<option value="current_year">Bieżący rok</option>
 												<?php
 													if ($date_of_transaction == 'current_year')
 													{
@@ -119,7 +119,7 @@
 													exit();
 													}
 												?>
-												<option value="custom_date">Niestandardowy</option>
+												<option value="custom_date" selected>Niestandardowy</option>
 												<?php
 													if ($date_of_transaction == 'custom_date')
 													{
@@ -129,26 +129,12 @@
 												?>
 										</select>
 										
-										<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
-										  <div class="modal-dialog" role="document">
-											<div class="modal-content">
-											  <div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											  </div>
-											  <div class="modal-body">
-													<div id="formId" class="justify-content-center row">
-														<label class="col-form-label" style="text-decoration: underline; color: green;">Zakres dat:</label>
-														<label class="col-form-label">Od:</label><input type="date" name="starting_date">
-														<label class="col-form-label">Do:</label><input type="date" name="ending_date">
-													</div>
-											  </div>
-											  <div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-												<button type="submit" class="btn btn-success">Wybierz zakres</button>
-											  </div>
-											</div><!-- /.modal-content -->
-										  </div><!-- /.modal-dialog -->
-										</div><!-- /.modal -->
+										<label class="col-form-label" style="text-decoration: underline; color: green;">Zakres dat:</label>
+										<label class="col-form-label">Od:</label><input type="date" name="starting_date" value="<?php 
+										echo $_SESSION['starting_date']; ?>" class="mx-2 col-lg-6">
+										<label class="col-form-label">Do:</label><input type="date" name="ending_date" value="<?php 
+										echo $_SESSION['ending_date']; ?>" class="mx-2 mb-5 col-lg-6" >
+						
 						
 										</div>
 										

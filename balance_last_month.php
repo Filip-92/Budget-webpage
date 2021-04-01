@@ -87,16 +87,49 @@
 		
 								<h1 class="mt-3">Bilans z wybranego okresu:</h1>
 			
-									<form action="balance_query.php" method="post">
+									<form action="balance_last_month.php" method="post">
 
 										<div id="formId" class="justify-content-center row">
 								
 										<label class="col-form-label">Okres zdefiniowany:</label>
 										<select id="płatność" name="date_of_transaction" class="col-lg-12">
 												<option value="current_month">Bieżący miesiąc</option>
+												<?php
+													$date_of_transaction = $_POST['date_of_transaction'];	
+													
+													if ($date_of_transaction == 'current_month')
+													{
+													header('Location: balance_default.php');
+													exit();
+													}
+												?>
 												<option value="previous_month" selected>Poprzedni miesiąc</option>
+												<?php
+													if ($date_of_transaction == 'previous_month')
+													{
+													header('Location: balance_last_month.php');
+													exit();
+													}
+												?>
 												<option value="current_year">Bieżący rok</option>
+												<?php
+													if ($date_of_transaction == 'current_year')
+													{
+													header('Location: balance_this_year.php');
+													exit();
+													}
+												?>
 												<option value="custom_date">Niestandardowy</option>
+												<?php
+													if ($date_of_transaction == 'custom_date')
+													{
+														if ((isset($_POST['starting_date'])) && (isset($_POST['ending_date'])))
+														{
+															header('Location: balance_custom_date.php');
+															exit();
+														}
+													}
+												?>
 										</select>
 										
 										<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
@@ -104,7 +137,6 @@
 											<div class="modal-content">
 											  <div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												<h4 class="custom_date">Wybierz zakres dat</h4>
 											  </div>
 											  <div class="modal-body">
 													<div id="formId" class="justify-content-center row">

@@ -389,11 +389,12 @@ input:focus:-ms-input-placeholder
 {
 	margin-top: -5px !important;
 	margin-bottom: 40px;
-	height: 780px;
+	height: 790px;
 	background-color: #EEEEEE;
 	border: 1px solid #808080;
 	border-radius: 0px 0px 8px 8px;
 	overflow-y: auto;
+	overflow-x: none;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 }
@@ -411,6 +412,7 @@ input:focus:-ms-input-placeholder
 	border: 1px solid #808080;
 	border-radius: 0px 0px 8px 8px;
 	overflow-y: auto;
+	overflow-x: none;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 }
@@ -560,5 +562,14 @@ footer
 	.dw
 	{
 		margin-right: 20px;
+	}
+}
+
+@media (max-width: 1650px)
+{
+	.category
+	{
+		height: 42px;
+		border-bottom: none !important;
 	}
 }

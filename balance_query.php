@@ -13,6 +13,18 @@
 		  
 		  $date_of_transaction = $_POST['date_of_transaction'];		  
 		  
+			if ($date_of_transaction == 'previous_month')
+			{
+				header('Location: balance_last_month.php');
+				exit();
+			}
+			
+			if ($date_of_transaction == 'current_year')
+			}   											
+				header('Location: balance_this_year.php');
+				exit();
+			}
+			
 		  //Poprzedni miesiąc	
 		  if ($date_of_transaction == 'previous_month')
 		  {
