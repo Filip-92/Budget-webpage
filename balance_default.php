@@ -8,6 +8,9 @@
 		exit();
 	}
 	
+	$id_user = $_SESSION['id'];   
+	$current_date = date('Y-m-d');
+	
 ?>
 
 <!DOCTYPE HTML>
@@ -23,6 +26,7 @@
 	
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="main.css" type="text/css" />
+	<link rel="shortcut icon" type="image/ico" href="img/bag.jpg">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 	
 	<!--[if lt IE 9]>
@@ -84,6 +88,10 @@
 						<div class="categories">
 				
 							<header>
+							
+								<h5 style="float: left;">Zalogowany jako: <?php echo '<span style="color:green">'.$_SESSION['user'].'</span>'; ?> </h5>
+								<div style="clear:both;">
+								</div>
 		
 								<h1 class="mt-3">Bilans z wybranego okresu:</h1>
 			
@@ -107,7 +115,7 @@
 												<?php
 													if ($date_of_transaction == 'previous_month')
 													{
-													header('Location: balance_last_month.php');
+													header('Location: balance_previous_month.php');
 													exit();
 													}
 												?>
@@ -115,7 +123,7 @@
 												<?php
 													if ($date_of_transaction == 'current_year')
 													{
-													header('Location: balance_this_year.php');
+													header('Location: balance_current_year.php');
 													exit();
 													}
 												?>
@@ -124,13 +132,7 @@
 													if ($date_of_transaction == 'custom_date')
 													{
 														if ((isset($_POST['starting_date'])) && (isset($_POST['ending_date'])))
-														{
-															$starting_date = $_POST['starting_date'];;
-															$ending_date = $_POST['ending_date'];;
-
-															$_SESSION['starting_date'] = $starting_date;
-															$_SESSION['ending_date'] = $ending_date;
-															
+														{														
 															header('Location: balance_custom_date.php');
 															exit();
 														}
@@ -194,11 +196,10 @@
 												<div class="column_incomes_category">
 												<?php
 													  require_once 'database.php';
-													  $id_user = $_SESSION['id'];   
-													  $current_date = date('Y-m-d');
+
 													  $month = date("m", strtotime($current_date));
 													  
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 													  $query_select_incomes_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
@@ -208,7 +209,7 @@
 																	
 														foreach($result_sum_of_incomes as $month_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_incomes_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -217,41 +218,17 @@
 
 															$result_details_of_incomes = $query_select_incomes_details->fetchAll();
 
-															 echo $month_incomes[1];
+															 echo $month_incomes[0].'<br>';
 														}  
 												?>
 												</div>
 												<div class="column_incomes_amount">
 												<?php
-																
-												  $result_sum_of_incomes = $query_select_incomes_sum->fetchAll();
-																
-													foreach($result_sum_of_incomes as $month_incomes)
-													{
-														$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
-														$query_select_incomes_details = $db->prepare($sql_incomes_details);
-														$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-														$query_select_incomes_details->bindValue(':month', $month, PDO::PARAM_INT);   
-														$query_select_incomes_details->bindValue(':category_name', $month_incomes[0], PDO::PARAM_INT);   
-														$query_select_incomes_details->execute();
-
-														$result_details_of_incomes = $query_select_incomes_details->fetchAll();
-														 
-														 foreach($result_details_of_incomes as $incomes_details)
-														{
-															  echo $incomes_details[1]; 
-														}      
-													}
-												?>
-												</div>
-												<div class="column_incomes_date"> 
-												<?php
 													  require_once 'database.php';
-													  $id_user = $_SESSION['id'];   
-													  $current_date = date('Y-m-d');
+
 													  $month = date("m", strtotime($current_date));
 													  
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 													  $query_select_incomes_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
@@ -261,7 +238,36 @@
 																	
 														foreach($result_sum_of_incomes as $month_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE  incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
+															$query_select_incomes_details = $db->prepare($sql_incomes_details);
+															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
+															$query_select_incomes_details->bindValue(':month', $month, PDO::PARAM_INT);   
+															$query_select_incomes_details->bindValue(':category_name', $month_incomes[0], PDO::PARAM_INT);   
+															$query_select_incomes_details->execute();
+
+															$result_details_of_incomes = $query_select_incomes_details->fetchAll();
+
+															 echo $month_incomes[1].'<br>';
+														}  
+												?>
+												</div>
+												<div class="column_incomes_date"> 
+												<?php
+													  require_once 'database.php';
+
+													  $month = date("m", strtotime($current_date));
+													  
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
+													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
+													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
+													  $query_select_incomes_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
+													  $query_select_incomes_sum->execute();
+																	
+													  $result_sum_of_incomes = $query_select_incomes_sum->fetchAll();
+																	
+														foreach($result_sum_of_incomes as $month_incomes)
+														{
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_incomes_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -272,7 +278,7 @@
 															
 															 foreach($result_details_of_incomes as $incomes_details)
 															{
-																  echo $incomes_details[0]; 
+																  echo $incomes_details[0].'<br>'; 
 															}      
 														}
 												?>
@@ -280,11 +286,10 @@
 												<div class="column_incomes_comment"> 
 												<?php
 													  require_once 'database.php';
-													  $id_user = $_SESSION['id'];   
-													  $current_date = date('Y-m-d');
+
 													  $month = date("m", strtotime($current_date));
 													  
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 													  $query_select_incomes_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
@@ -294,7 +299,7 @@
 																	
 														foreach($result_sum_of_incomes as $month_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_incomes_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -305,19 +310,12 @@
 															
 															 foreach($result_details_of_incomes as $incomes_details)
 															{
-																  echo $incomes_details[1]; 
+																  echo $incomes_details[1].'<br>'; 
 															} 
 														}															
 												?>
 												</div>
 											</div>
-											<div style="clear:both;">
-											</div>
-											<h6 style="float: left;">Suma:
-											<?php 
-											echo $_SESSION['month_incomes2']; 
-											?>
-											</h6>
 											<div style="clear:both;">
 											</div>
 										
@@ -348,8 +346,7 @@
 												<div class="column_incomes_category">
 												<?php
 													  require_once 'database.php';
-													  $id_user = $_SESSION['id'];   
-													  $current_date = date('Y-m-d');
+
 													  $month = date("m", strtotime($current_date));
 													  
 													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month GROUP BY Category ORDER BY Amount DESC";
@@ -371,48 +368,43 @@
 
 															$result_details_of_expenses = $query_select_expenses_details->fetchAll();
 
-															 echo '<div class="card-header">'.$month_incomes[0].': '.$month_incomes[1].'zł'.'</div>';
+															 echo $month_expenses[0].'<br>';
 														}  
 												?>
 												</div>
 												<div class="column_incomes_amount">
 												<?php
-												  require_once 'database.php';
-												  $id_user = $_SESSION['id'];   
-												  $current_date = date('Y-m-d');
-												  $month = date("m", strtotime($current_date));
-												  
-												  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month GROUP BY Category ORDER BY Amount DESC";
-												  $query_select_expenses_sum = $db->prepare($sql_balance_expenses);
-												  $query_select_expenses_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-												  $query_select_expenses_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
-												  $query_select_expenses_sum->execute();
-																
-												  $result_sum_of_expenses = $query_select_expenses_sum->fetchAll();
-																
-													foreach($result_sum_of_expenses as $month_expenses)
-													{
-														$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date";
-														$query_select_expenses_details = $db->prepare($sql_expenses_details);
-														$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-														$query_select_expenses_details->bindValue(':month', $month, PDO::PARAM_INT);   
-														$query_select_expenses_details->bindValue(':category_name', $month_expenses[0], PDO::PARAM_INT);   
-														$query_select_expenses_details->execute();
+													  require_once 'database.php';
 
-														$result_details_of_expenses = $query_select_expenses_details->fetchAll();
-														 
-														 foreach($result_details_of_expenses as $expenses_details)
+													  $month = date("m", strtotime($current_date));
+													  
+													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month GROUP BY Category ORDER BY Amount DESC";
+													  $query_select_expenses_sum = $db->prepare($sql_balance_expenses);
+													  $query_select_expenses_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
+													  $query_select_expenses_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
+													  $query_select_expenses_sum->execute();
+																	
+													  $result_sum_of_expenses = $query_select_expenses_sum->fetchAll();
+																	
+														foreach($result_sum_of_expenses as $month_expenses)
 														{
-															  echo $expenses_details[1]; 
-														}      
-													}
+															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date";
+															$query_select_expenses_details = $db->prepare($sql_expenses_details);
+															$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
+															$query_select_expenses_details->bindValue(':month', $month, PDO::PARAM_INT);   
+															$query_select_expenses_details->bindValue(':category_name', $month_expenses[0], PDO::PARAM_INT);   
+															$query_select_expenses_details->execute();
+
+															$result_details_of_expenses = $query_select_expenses_details->fetchAll();
+
+															 echo $month_expenses[1].'<br>';
+														}  
 												?>
 												</div>
 												<div class="column_incomes_date"> 
 												<?php
 													  require_once 'database.php';
-													  $id_user = $_SESSION['id'];   
-													  $current_date = date('Y-m-d');
+
 													  $month = date("m", strtotime($current_date));
 													  
 													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month GROUP BY Category ORDER BY Amount DESC";
@@ -436,7 +428,7 @@
 															
 															 foreach($result_details_of_expenses as $expenses_details)
 															{
-																  echo $expenses_details[0]; 
+																  echo $expenses_details[0].'<br>'; 
 															}      
 														}
 												?>
@@ -444,8 +436,7 @@
 												<div class="column_incomes_comment"> 
 												<?php
 													  require_once 'database.php';
-													  $id_user = $_SESSION['id'];   
-													  $current_date = date('Y-m-d');
+
 													  $month = date("m", strtotime($current_date));
 													  
 													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month GROUP BY Category ORDER BY Amount DESC";
@@ -469,27 +460,94 @@
 															
 															 foreach($result_details_of_expenses as $expenses_details)
 															{
-																  echo $expenses_details[1]; 
+																  echo $expenses_details[1].'<br>'; 
 															} 
 														}															
 												?>
 												</div>
 											</div>
 							<div style="clear:both;">
-							</div>
-							<h6 style="float: left;">Suma:
-									<?php 
-										echo $_SESSION['month_expenses2']; 
-									?>
-							</h6>
-							<div style="clear:both;">
-							</div>
 										
 						</td> 
 						
+						<tr>
+							<td colspan="3" align="center" bgcolor="black">
+							</td>
+						</tr>		
 	</table>
 	
 	</header>
+	
+	 <div class="col-12 col-xl-6 my-4" style="float: left">
+                    <h3 class="card-title text-center display-4" style="margin-top: 0px; margin-bottom: 60px;">Bilans</h3>
+                    <?php 
+                        $incomes_sum = 0;                    
+                        foreach($result_sum_of_incomes as $month_incomes)
+                        {                          
+                            $incomes_sum += $month_incomes[1];
+                        }    
+
+                        $expenses_sum = 0;
+                        foreach($result_sum_of_expenses as $month_expenses)
+                        {                          
+                            $expenses_sum += $month_expenses[1];
+                        }    
+                         
+                        $balance = $incomes_sum - $expenses_sum;
+						
+						if($balance >= 0)
+                        {
+                            echo '<div class = "text-field" style="color: green;">'.$balance.'zł</div>';
+                        }
+                        echo '<div class = "text-field" style="color: red;">'.$balance.'zł</div>';
+                    ?>            
+                    <?php
+                        if($balance >= 0)
+                        {
+                            echo '<p class="message text-primary text-center" style="width: 400px;">Gratulacje. Świetnie zarządzasz finansami!</p>';
+                        }
+                        else echo '<p class="message text-danger text-center" style="width: 300px;">Uważaj, wpadasz w długi!</p>';
+                    ?>                    
+        </div>
+		
+		<div class="col-6 my-4" style="float: left">
+			<div class="display-4 text-center">Wydatki</div>
+			<div id="chartWrap"></div>
+			<div id="piechart"></div>
+		</div>
+		<div style="clear:both;">
+		</div>
+
+		<script src="https://www.gstatic.com/charts/loader.js"></script>
+
+		<script>
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+
+			function drawChart() 
+			{
+				const data = google.visualization.arrayToDataTable([
+					['Wydatek', 'zł'],
+					<?php
+						foreach ($result_sum_of_expenses as $expense)
+						{
+							echo "['".$expense[0]."',".$expense[1]."],";
+						}
+					?>
+				]);
+
+				const options = {
+					legend: {position: 'bottom', alignment: 'center'},
+					chartArea:{width:'50%',height:'400px'},
+			};
+
+			const chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+			chart.draw(data, options);
+			}    
+
+		</script>                  
+
 						
 					</div>
 	
@@ -506,6 +564,8 @@
 				</div>
 		
 		</footer>
+		
+		<script src="balanceScript.js"></script>
 		
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		

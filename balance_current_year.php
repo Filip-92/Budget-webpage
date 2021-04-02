@@ -10,7 +10,7 @@
 	
 	$id_user = $_SESSION['id'];   
 	$current_date = date('Y-m-d');
-	
+
 ?>
 
 <!DOCTYPE HTML>
@@ -95,7 +95,7 @@
 		
 								<h1 class="mt-3">Bilans z wybranego okresu:</h1>
 			
-									<form action="balance_custom_date.php" method="post">
+									<form action="balance_current_year.php" method="post">
 
 										<div id="formId" class="justify-content-center row">
 								
@@ -119,7 +119,7 @@
 													exit();
 													}
 												?>
-												<option value="current_year">Bieżący rok</option>
+												<option value="current_year" selected>Bieżący rok</option>
 												<?php
 													if ($date_of_transaction == 'current_year')
 													{
@@ -127,12 +127,18 @@
 													exit();
 													}
 												?>
-												<option value="custom_date" selected>Niestandardowy</option>
+												<option value="custom_date">Niestandardowy</option>
 												<?php
 													if ($date_of_transaction == 'custom_date')
 													{
 														if ((isset($_POST['starting_date'])) && (isset($_POST['ending_date'])))
-														{															
+														{
+															$starting_date = $_POST['starting_date'];;
+															$ending_date = $_POST['ending_date'];;
+
+															$_SESSION['starting_date'] = $starting_date;
+															$_SESSION['ending_date'] = $ending_date;
+															
 															header('Location: balance_custom_date.php');
 															exit();
 														}
@@ -140,12 +146,26 @@
 												?>
 										</select>
 										
-										<label class="col-form-label" style="text-decoration: underline; color: green;">Zakres dat:</label>
-										<label class="col-form-label">Od:</label><input type="date" name="starting_date" value="<?php 
-										echo $_SESSION['starting_date']; ?>" class="mx-2 col-lg-6">
-										<label class="col-form-label">Do:</label><input type="date" name="ending_date" value="<?php 
-										echo $_SESSION['ending_date']; ?>" class="mx-2 mb-5 col-lg-6" >
-						
+										<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+										  <div class="modal-dialog" role="document">
+											<div class="modal-content">
+											  <div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											  </div>
+											  <div class="modal-body">
+													<div id="formId" class="justify-content-center row">
+														<label class="col-form-label" style="text-decoration: underline; color: green;">Zakres dat:</label>
+														<label class="col-form-label">Od:</label><input type="date" name="starting_date">
+														<label class="col-form-label">Do:</label><input type="date" name="ending_date">
+													</div>
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+												<button type="submit" class="btn btn-success">Wybierz zakres</button>
+											  </div>
+											</div><!-- /.modal-content -->
+										  </div><!-- /.modal-dialog -->
+										</div><!-- /.modal -->
 						
 										</div>
 										
@@ -163,7 +183,7 @@
 										<tr>
 											<td width="60%" align="top">
 							
-										<h3>Przychody</h3>
+																				<h3>Przychody</h3>
 											<div class="category">
 													<div class="category_transaction_category">
 															<h4>Kategoria: </h4>
@@ -182,29 +202,28 @@
 												<div class="column_incomes_category">
 												<?php
 													  require_once 'database.php';
-													  
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND incomes.date_of_income BETWEEN :starting_date AND :ending_date GROUP BY Category ORDER BY Amount DESC";
-													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
-													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-													  $query_select_incomes_sum->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-													  $query_select_incomes_sum->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                                
-													  $query_select_incomes_sum->execute();
-																	
-													  $result_sum_of_incomes = $query_select_incomes_sum->fetchAll();
-																	
-														foreach($result_sum_of_incomes as $custom_incomes)
-														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND incomes.date_of_income BETWEEN :starting_date AND :ending_date AND category_incomes.name = :category_name ORDER BY Date";
-															$query_select_incomes_details = $db->prepare($sql_incomes_details);
-															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-															$query_select_incomes_details->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-															$query_select_incomes_details->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                    
-															$query_select_incomes_details->bindValue(':category_name', $custom_incomes[0], PDO::PARAM_INT);   
-															$query_select_incomes_details->execute();
 
-															$result_details_of_incomes = $query_select_incomes_details->fetchAll();
+													  $year = date("Y", strtotime($current_date));
+													  													  
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND YEAR(date_of_income) = :year GROUP BY Category ORDER BY Amount DESC";
+													$query_select_incomes_sum = $db->prepare($sql_balance_incomes);
+													$query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
+													$query_select_incomes_sum->bindValue(':year', $year, PDO::PARAM_INT);                                
+													$query_select_incomes_sum->execute();
+												
+													$result_sum_of_incomes = $query_select_incomes_sum->fetchAll();
+												
+													foreach($result_sum_of_incomes as $year_incomes)
+													{
+														$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND YEAR(date_of_income) = :year AND category_incomes.name = :category_name ORDER BY Date";
+														$query_select_incomes_details = $db->prepare($sql_incomes_details);
+														$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
+														$query_select_incomes_details->bindValue(':year', $year, PDO::PARAM_INT);   
+														$query_select_incomes_details->bindValue(':category_name', $year_incomes[0], PDO::PARAM_INT);   $query_select_incomes_details->execute();
 
-															 echo $custom_incomes[0].'<br>';
+														$result_details_of_incomes = $query_select_incomes_details->fetchAll();
+
+															 echo $year_incomes[0].'<br>';
 														}  
 												?>
 												</div>
@@ -212,28 +231,28 @@
 												<?php
 													  require_once 'database.php';
 
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND incomes.date_of_income BETWEEN :starting_date AND :ending_date GROUP BY Category ORDER BY Amount DESC";
+													   $year = date("Y", strtotime($current_date));
+													  
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Year(date_of_income) = :year GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-													  $query_select_incomes_sum->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-													  $query_select_incomes_sum->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                                
+													  $query_select_incomes_sum->bindValue(':year', $year, PDO::PARAM_INT);                                
 													  $query_select_incomes_sum->execute();
 																	
 													  $result_sum_of_incomes = $query_select_incomes_sum->fetchAll();
 																	
-														foreach($result_sum_of_incomes as $custom_incomes)
+														foreach($result_sum_of_incomes as $year_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND incomes.date_of_income BETWEEN :starting_date AND :ending_date AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Year(date_of_income) = :year AND category_incomes.name = :category_name ORDER BY Date";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-															$query_select_incomes_details->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-															$query_select_incomes_details->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                    
-															$query_select_incomes_details->bindValue(':category_name', $custom_incomes[0], PDO::PARAM_INT);   
+															$query_select_incomes_details->bindValue(':year', $year, PDO::PARAM_INT);   
+															$query_select_incomes_details->bindValue(':category_name', $year_incomes[0], PDO::PARAM_INT);   
 															$query_select_incomes_details->execute();
 
 															$result_details_of_incomes = $query_select_incomes_details->fetchAll();
 
-															 echo $custom_incomes[1].'<br>';
+															 echo $year_incomes[1].'<br>';
 														}  
 												?>
 												</div>
@@ -241,23 +260,23 @@
 												<?php
 													  require_once 'database.php';
 
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND incomes.date_of_income BETWEEN :starting_date AND :ending_date GROUP BY Category ORDER BY Amount DESC";
+													  $year = date("Y", strtotime($current_date));
+													  
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Year(date_of_income) = :year GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-													  $query_select_incomes_sum->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-													  $query_select_incomes_sum->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                                
+													  $query_select_incomes_sum->bindValue(':year', $year, PDO::PARAM_INT);                                
 													  $query_select_incomes_sum->execute();
 																	
 													  $result_sum_of_incomes = $query_select_incomes_sum->fetchAll();
 																	
-														foreach($result_sum_of_incomes as $custom_incomes)
+														foreach($result_sum_of_incomes as $year_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND incomes.date_of_income BETWEEN :starting_date AND :ending_date AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Year(date_of_income) = :year AND category_incomes.name = :category_name ORDER BY Date";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-															$query_select_incomes_details->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-															$query_select_incomes_details->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                    
-															$query_select_incomes_details->bindValue(':category_name', $custom_incomes[0], PDO::PARAM_INT);   
+															$query_select_incomes_details->bindValue(':year', $year, PDO::PARAM_INT);   
+															$query_select_incomes_details->bindValue(':category_name', $year_incomes[0], PDO::PARAM_INT);   
 															$query_select_incomes_details->execute();
 
 															$result_details_of_incomes = $query_select_incomes_details->fetchAll();
@@ -273,23 +292,23 @@
 												<?php
 													  require_once 'database.php';
 
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND incomes.date_of_income BETWEEN :starting_date AND :ending_date GROUP BY Category ORDER BY Amount DESC";
+													  $year = date("Y", strtotime($current_date));
+													  
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Year(date_of_income) = :year GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-													  $query_select_incomes_sum->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-													  $query_select_incomes_sum->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                                
+													  $query_select_incomes_sum->bindValue(':year', $year, PDO::PARAM_INT);                                
 													  $query_select_incomes_sum->execute();
 																	
 													  $result_sum_of_incomes = $query_select_incomes_sum->fetchAll();
 																	
-														foreach($result_sum_of_incomes as $custom_incomes)
+														foreach($result_sum_of_incomes as $year_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND incomes.date_of_income BETWEEN :starting_date AND :ending_date AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Year(date_of_income) = :year AND category_incomes.name = :category_name ORDER BY Date";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-															$query_select_incomes_details->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-															$query_select_incomes_details->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                    
-															$query_select_incomes_details->bindValue(':category_name', $custom_incomes[0], PDO::PARAM_INT);   
+															$query_select_incomes_details->bindValue(':year', $year, PDO::PARAM_INT);   
+															$query_select_incomes_details->bindValue(':category_name', $year_incomes[0], PDO::PARAM_INT);   
 															$query_select_incomes_details->execute();
 
 															$result_details_of_incomes = $query_select_incomes_details->fetchAll();
@@ -332,29 +351,29 @@
 												<div class="column_incomes_category">
 												<?php
 													  require_once 'database.php';
+
+													  $year = date("Y", strtotime($current_date));
 													  
-													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND expenses.date_of_expense BETWEEN :starting_date AND :ending_date GROUP BY Category ORDER BY Amount DESC";
+													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Year(date_of_expense) = :year GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_expenses_sum = $db->prepare($sql_balance_expenses);
 													  $query_select_expenses_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-													  $query_select_expenses_sum->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-													  $query_select_expenses_sum->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                                
+													  $query_select_expenses_sum->bindValue(':year', $year, PDO::PARAM_INT);                                
 													  $query_select_expenses_sum->execute();
 																	
 													  $result_sum_of_expenses = $query_select_expenses_sum->fetchAll();
 																	
-														foreach($result_sum_of_expenses as $custom_expenses)
+														foreach($result_sum_of_expenses as $year_expenses)
 														{
-															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND expenses.date_of_expense BETWEEN :starting_date AND :ending_date AND category_expenses.name = :category_name ORDER BY Date";
+															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Year(date_of_expense) = :year AND category_expenses.name = :category_name ORDER BY Date";
 															$query_select_expenses_details = $db->prepare($sql_expenses_details);
 															$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-															$query_select_expenses_details->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-															$query_select_expenses_details->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                    
-															$query_select_expenses_details->bindValue(':category_name', $custom_expenses[0], PDO::PARAM_INT);   
+															$query_select_expenses_details->bindValue(':year', $year, PDO::PARAM_INT);   
+															$query_select_expenses_details->bindValue(':category_name', $year_expenses[0], PDO::PARAM_INT);   
 															$query_select_expenses_details->execute();
 
 															$result_details_of_expenses = $query_select_expenses_details->fetchAll();
 
-															 echo $custom_expenses[0].'<br>';
+															 echo $year_expenses[0].'<br>';
 														}  
 												?>
 												</div>
@@ -362,28 +381,28 @@
 												<?php
 													  require_once 'database.php';
 
-													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND expenses.date_of_expense BETWEEN :starting_date AND :ending_date GROUP BY Category ORDER BY Amount DESC";
+													  $year = date("Y", strtotime($current_date));
+													  
+													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Year(date_of_expense) = :year GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_expenses_sum = $db->prepare($sql_balance_expenses);
 													  $query_select_expenses_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-													  $query_select_expenses_sum->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-													  $query_select_expenses_sum->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                                
+													  $query_select_expenses_sum->bindValue(':year', $year, PDO::PARAM_INT);                                
 													  $query_select_expenses_sum->execute();
 																	
 													  $result_sum_of_expenses = $query_select_expenses_sum->fetchAll();
 																	
-														foreach($result_sum_of_expenses as $custom_expenses)
+														foreach($result_sum_of_expenses as $year_expenses)
 														{
-															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND expenses.date_of_expense BETWEEN :starting_date AND :ending_date AND category_expenses.name = :category_name ORDER BY Date";
+															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Year(date_of_expense) = :year AND category_expenses.name = :category_name ORDER BY Date";
 															$query_select_expenses_details = $db->prepare($sql_expenses_details);
 															$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-															$query_select_expenses_details->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-															$query_select_expenses_details->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                    
-															$query_select_expenses_details->bindValue(':category_name', $custom_expenses[0], PDO::PARAM_INT);   
+															$query_select_expenses_details->bindValue(':year', $year, PDO::PARAM_INT);   
+															$query_select_expenses_details->bindValue(':category_name', $year_expenses[0], PDO::PARAM_INT);   
 															$query_select_expenses_details->execute();
 
 															$result_details_of_expenses = $query_select_expenses_details->fetchAll();
 
-															 echo $custom_expenses[1].'<br>';
+															 echo $year_expenses[1].'<br>';
 														}  
 												?>
 												</div>
@@ -391,23 +410,23 @@
 												<?php
 													  require_once 'database.php';
 
-													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND expenses.date_of_expense BETWEEN :starting_date AND :ending_date GROUP BY Category ORDER BY Amount DESC";
+													  $year = date("Y", strtotime($current_date));
+													  
+													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Year(date_of_expense) = :year GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_expenses_sum = $db->prepare($sql_balance_expenses);
 													  $query_select_expenses_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-													  $query_select_expenses_sum->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-													  $query_select_expenses_sum->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                                
+													  $query_select_expenses_sum->bindValue(':year', $year, PDO::PARAM_INT);                                
 													  $query_select_expenses_sum->execute();
 																	
 													  $result_sum_of_expenses = $query_select_expenses_sum->fetchAll();
 																	
-														foreach($result_sum_of_expenses as $custom_expenses)
+														foreach($result_sum_of_expenses as $year_expenses)
 														{
-															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND expenses.date_of_expense BETWEEN :starting_date AND :ending_date AND category_expenses.name = :category_name ORDER BY Date";
+															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Year(date_of_expense) = :year AND category_expenses.name = :category_name ORDER BY Date";
 															$query_select_expenses_details = $db->prepare($sql_expenses_details);
 															$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-															$query_select_expenses_details->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-															$query_select_expenses_details->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                    
-															$query_select_expenses_details->bindValue(':category_name', $custom_expenses[0], PDO::PARAM_INT);   
+															$query_select_expenses_details->bindValue(':year', $year, PDO::PARAM_INT);   
+															$query_select_expenses_details->bindValue(':category_name', $year_expenses[0], PDO::PARAM_INT);   
 															$query_select_expenses_details->execute();
 
 															$result_details_of_expenses = $query_select_expenses_details->fetchAll();
@@ -423,23 +442,23 @@
 												<?php
 													  require_once 'database.php';
 
-													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND expenses.date_of_expense BETWEEN :starting_date AND :ending_date GROUP BY Category ORDER BY Amount DESC";
+													  $year = date("Y", strtotime($current_date));
+													  
+													  $sql_balance_expenses = "SELECT category_expenses.name as Category, SUM(expenses.amount) as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Year(date_of_expense) = :year GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_expenses_sum = $db->prepare($sql_balance_expenses);
 													  $query_select_expenses_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-													  $query_select_expenses_sum->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-													  $query_select_expenses_sum->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                                
+													  $query_select_expenses_sum->bindValue(':year', $year, PDO::PARAM_INT);                                
 													  $query_select_expenses_sum->execute();
 																	
 													  $result_sum_of_expenses = $query_select_expenses_sum->fetchAll();
 																	
-														foreach($result_sum_of_expenses as $custom_expenses)
+														foreach($result_sum_of_expenses as $year_expenses)
 														{
-															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND expenses.date_of_expense BETWEEN :starting_date AND :ending_date AND category_expenses.name = :category_name ORDER BY Date";
+															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Year(date_of_expense) = :year AND category_expenses.name = :category_name ORDER BY Date";
 															$query_select_expenses_details = $db->prepare($sql_expenses_details);
 															$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
-															$query_select_expenses_details->bindValue(':starting_date', $_SESSION['starting_date'], PDO::PARAM_STR);
-															$query_select_expenses_details->bindValue(':ending_date', $_SESSION['ending_date'], PDO::PARAM_STR);                    
-															$query_select_expenses_details->bindValue(':category_name', $custom_expenses[0], PDO::PARAM_INT);   
+															$query_select_expenses_details->bindValue(':year', $year, PDO::PARAM_INT);   
+															$query_select_expenses_details->bindValue(':category_name', $year_expenses[0], PDO::PARAM_INT);   
 															$query_select_expenses_details->execute();
 
 															$result_details_of_expenses = $query_select_expenses_details->fetchAll();
@@ -452,8 +471,7 @@
 												?>
 												</div>
 											</div>
-											<div style="clear:both;">
-											</div>
+							<div style="clear:both;">
 										
 						</td> 
 						
@@ -469,15 +487,15 @@
                     <h3 class="card-title text-center display-4" style="margin-top: 0px; margin-bottom: 60px;">Bilans</h3>
                     <?php 
                         $incomes_sum = 0;                    
-                        foreach($result_sum_of_incomes as $custom_incomes)
+                        foreach($result_sum_of_incomes as $year_incomes)
                         {                          
-                            $incomes_sum += $custom_incomes[1];
+                            $incomes_sum += $year_incomes[1];
                         }    
 
                         $expenses_sum = 0;
-                        foreach($result_sum_of_expenses as $custom_expenses)
+                        foreach($result_sum_of_expenses as $year_expenses)
                         {                          
-                            $expenses_sum += $custom_expenses[1];
+                            $expenses_sum += $year_expenses[1];
                         }    
                          
                         $balance = $incomes_sum - $expenses_sum;

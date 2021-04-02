@@ -391,6 +391,9 @@ input:focus:-ms-input-placeholder
 	margin-bottom: 40px;
 	height: 790px;
 	background-color: #EEEEEE;
+	font-style: green;
+	color: green;
+	font-family: Open-Sans, serif;
 	border: 1px solid #808080;
 	border-radius: 0px 0px 8px 8px;
 	overflow-y: auto;
@@ -409,6 +412,8 @@ input:focus:-ms-input-placeholder
 	margin-bottom: 40px;
 	height: 780px;
 	background-color: #EEEEEE;
+	font-style: red;
+	color: red;
 	border: 1px solid #808080;
 	border-radius: 0px 0px 8px 8px;
 	overflow-y: auto;
@@ -472,6 +477,36 @@ footer
 	margin-left: auto;
 	margin-right: auto;
 	min-width: 500px;
+}
+
+.text-field
+{
+	width: 200px;
+	background-color: #efefef;
+	color: #666;
+	border: 2px solid #ddd;
+	border-radius: 5px;
+	font-size: 25px;
+	box-sizing: border-box;
+	outline: none;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	height: 40px;
+}
+
+.balance
+{
+	border: 1px solid #808080;
+	border-radius: 8px 8px 8px 8px;
+}
+
+.message
+{
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 25px;
 }
 
 .error
