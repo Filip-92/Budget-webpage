@@ -504,7 +504,10 @@
                         {
                             echo '<div class = "text-field" style="color: green;">'.$balance.'zł</div>';
                         }
-                        echo '<div class = "text-field" style="color: red;">'.$balance.'zł</div>';
+                        else 
+						{
+							echo '<div class = "text-field" style="color: red;">'.$balance.'zł</div>';
+						}
                     ?>            
                     <?php
                         if($balance >= 0)

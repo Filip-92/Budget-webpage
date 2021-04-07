@@ -499,14 +499,20 @@
                         {
                             echo '<div class = "text-field" style="color: green;">'.$balance.'zł</div>';
                         }
-                        echo '<div class = "text-field" style="color: red;">'.$balance.'zł</div>';
+						else
+						{
+							echo '<div class = "text-field" style="color: red;">'.$balance.'zł</div>';
+						}
                     ?>            
                     <?php
                         if($balance >= 0)
                         {
                             echo '<p class="message text-primary text-center" style="width: 400px;">Gratulacje. Świetnie zarządzasz finansami!</p>';
                         }
-                        else echo '<p class="message text-danger text-center" style="width: 300px;">Uważaj, wpadasz w długi!</p>';
+                        else 
+						{
+							echo '<p class="message text-danger text-center" style="width: 300px;">Uważaj, wpadasz w długi!</p>';
+						}
                     ?>                    
         </div>
 		

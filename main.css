@@ -389,7 +389,7 @@ input:focus:-ms-input-placeholder
 {
 	margin-top: -5px !important;
 	margin-bottom: 40px;
-	height: 790px;
+	height: 500px;
 	background-color: #EEEEEE;
 	font-style: green;
 	color: green;
@@ -410,7 +410,7 @@ input:focus:-ms-input-placeholder
 .kategoriaw
 {
 	margin-bottom: 40px;
-	height: 780px;
+	height: 500px;
 	background-color: #EEEEEE;
 	font-style: red;
 	color: red;
@@ -441,7 +441,7 @@ h4
 {
 	float: left;
 	width: 25%;
-	height: 800px;
+	height: 100%;
 	border-right: 1px solid black;
 }
 
@@ -449,7 +449,7 @@ h4
 {
 	float: left;
 	width: 20%;
-	height: 800px;
+	height: 100%;
 	border-right: 1px solid black;
 }
 
@@ -457,14 +457,14 @@ h4
 {
 	float: left;
 	width: 20%;
-	height: 800px;
+	height: 100%;
 	border-right: 1px solid black;
 }
 
 .column_incomes_comment
 {
 	float: left;
-	height: 800px;
+	height: 100%;
 	width: 35% !important;
 }
 

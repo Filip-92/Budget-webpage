@@ -485,7 +485,7 @@
 	</header>
 	
 	 <div class="col-12 col-xl-6 my-4" style="float: left">
-                    <h3 class="card-title text-center display-4" style="margin-top: 0px; margin-bottom: 60px;">Bilans</h3>
+                    <h3 class="card-title text-center display-4" style="margin-top: 0px; margin-bottom: 40px;">Bilans</h3>
                     <?php 
                         $incomes_sum = 0;                    
                         foreach($result_sum_of_incomes as $month_incomes)
@@ -515,7 +515,10 @@
                         {
                             echo '<p class="message text-primary text-center" style="width: 400px;">Gratulacje. Świetnie zarządzasz finansami!</p>';
                         }
-                        else echo '<p class="message text-danger text-center" style="width: 300px;">Uważaj, wpadasz w długi!</p>';
+                        else 
+						{
+							echo '<p class="message text-danger text-center" style="width: 300px;">Uważaj, wpadasz w długi!</p>';
+						}
                     ?>                    
         </div>
 		
