@@ -199,7 +199,7 @@
 
 													  $month = date("m", strtotime($current_date));
 													  
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 													  $query_select_incomes_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
@@ -209,7 +209,7 @@
 																	
 														foreach($result_sum_of_incomes as $month_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date DESC";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_incomes_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -228,7 +228,7 @@
 
 													  $month = date("m", strtotime($current_date));
 													  
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 													  $query_select_incomes_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
@@ -238,7 +238,7 @@
 																	
 														foreach($result_sum_of_incomes as $month_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE  incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE  incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date DESC";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_incomes_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -257,7 +257,7 @@
 
 													  $month = date("m", strtotime($current_date));
 													  
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 													  $query_select_incomes_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
@@ -267,7 +267,7 @@
 																	
 														foreach($result_sum_of_incomes as $month_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date DESC LIMIT 1";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_incomes_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -289,7 +289,7 @@
 
 													  $month = date("m", strtotime($current_date));
 													  
-													  $sql_balance_incomes = "SELECT category_incomes.name as Category, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
+													  $sql_balance_incomes = "SELECT category_incomes.name as Category, SUM(incomes.amount) as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month GROUP BY Category ORDER BY Amount DESC";
 													  $query_select_incomes_sum = $db->prepare($sql_balance_incomes);
 													  $query_select_incomes_sum->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 													  $query_select_incomes_sum->bindValue(':month', $month, PDO::PARAM_INT);                                
@@ -299,7 +299,7 @@
 																	
 														foreach($result_sum_of_incomes as $month_incomes)
 														{
-															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes, incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date";
+															$sql_incomes_details = "SELECT incomes.date_of_income as Date, incomes.income_comment as Comment, incomes.amount as Amount FROM incomes INNER JOIN incomes_category_assigned_to_users as category_incomes WHERE incomes.income_category_assigned_to_user_id = category_incomes.id AND incomes.user_id= :id_user AND Month(date_of_income) = :month AND category_incomes.name = :category_name ORDER BY Date DESC LIMIT 1";
 															$query_select_incomes_details = $db->prepare($sql_incomes_details);
 															$query_select_incomes_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_incomes_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -359,7 +359,7 @@
 																	
 														foreach($result_sum_of_expenses as $month_expenses)
 														{
-															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date";
+															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date DESC";
 															$query_select_expenses_details = $db->prepare($sql_expenses_details);
 															$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_expenses_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -388,7 +388,7 @@
 																	
 														foreach($result_sum_of_expenses as $month_expenses)
 														{
-															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date";
+															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date DESC";
 															$query_select_expenses_details = $db->prepare($sql_expenses_details);
 															$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_expenses_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -417,7 +417,7 @@
 																	
 														foreach($result_sum_of_expenses as $month_expenses)
 														{
-															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date";
+															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date DESC LIMIT 1";
 															$query_select_expenses_details = $db->prepare($sql_expenses_details);
 															$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_expenses_details->bindValue(':month', $month, PDO::PARAM_INT);   
@@ -449,7 +449,7 @@
 																	
 														foreach($result_sum_of_expenses as $month_expenses)
 														{
-															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date";
+															$sql_expenses_details = "SELECT expenses.date_of_expense as Date, expenses.expense_comment as Comment, expenses.amount as Amount FROM expenses INNER JOIN expenses_category_assigned_to_users as category_expenses WHERE expenses.expense_category_assigned_to_user_id = category_expenses.id AND expenses.user_id= :id_user AND Month(date_of_expense) = :month AND category_expenses.name = :category_name ORDER BY Date DESC LIMIT 1";
 															$query_select_expenses_details = $db->prepare($sql_expenses_details);
 															$query_select_expenses_details->bindValue(':id_user', $id_user, PDO::PARAM_INT);
 															$query_select_expenses_details->bindValue(':month', $month, PDO::PARAM_INT);   
