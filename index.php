@@ -85,8 +85,16 @@
 				
 						<header>
 		
-							<h1> Cześć <?php echo '<span style="color:green">'.$_SESSION['user'].'</span>'; ?>, witaj w aplikacji służącej do zarządzania wydatkami!</h1>
-							<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum blandit sem, non condimentum quam malesuada in. Maecenas ornare dignissim velit, vitae eleifend est accumsan eu. Sed tempor lacus nunc, sed eleifend mi tempus a. Cras dui nunc, sollicitudin in est non, bibendum ullamcorper sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut volutpat luctus mauris non sollicitudin. Praesent ac quam non sapien malesuada commodo. Nam vitae nulla et dolor luctus blandit. Proin nec semper lectus, quis aliquam orci.</p>
+							<h1 style="margin-bottom: 80px;"> Cześć <?php echo '<span style="color:green">'.$_SESSION['user'].'</span>'; ?>, witaj w aplikacji służącej do zarządzania wydatkami!</h1>
+							<img src="img/savings.jpg" class="col-12 col-xl-4 mx-2" style="float: left;">
+							<p class="text-justify align-left">Aplikacja ta pozwala kontrolować zarówno swoje przychody jak i wydatki, za pośrednictwem następujących funkcji: </p><br>
+							<li class="align-right"> Dodawanie przychodu wraz z wyborem odpowiedniej kategorii, daty i wysokości przychodu</li>
+							<li class="align-middle"> Analogicznie dla dodawania wydatku, dodatkowo jest tam również opcja określenia sposobu płatności</li>
+							<li class="align-middle"> Przegląd bilansu z wybranego przez użytkownika okresu</li><br>
+							<p class="text-justify align-left">„Lepiej jest siąść i godzinę pomyśleć o swoich pieniądzach, niż przez tydzień na nie pracować” – Andre Kostolany</p>
+							
+							<div style="clear:both;">
+							</div>
 						
 						</header>
 						

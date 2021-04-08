@@ -351,9 +351,12 @@ input:focus:-ms-input-placeholder
 
 .category
 {
-	margin-bottom: -5px !important;
-	height: 20px;
+	height: 20px !important;
 	background-color: white;
+	width: 60%;
+	min-width: 480px;
+	margin-left: auto;
+	margin-right: auto;
 	border: 1px solid #808080;
 	border-radius: 8px 8px 0px 0px;
 }
@@ -385,11 +388,20 @@ input:focus:-ms-input-placeholder
 	width: 35% !important;
 }
 
+.table
+{
+	width: 60%;
+}
+
 .kategoriap
 {
 	margin-top: -5px !important;
 	margin-bottom: 40px;
-	height: 500px;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	height: 300px;
+	min-width: 480px;
 	background-color: #EEEEEE;
 	font-style: green;
 	color: green;
@@ -411,6 +423,10 @@ input:focus:-ms-input-placeholder
 {
 	margin-bottom: 40px;
 	height: 500px;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	min-width: 480px;
 	background-color: #EEEEEE;
 	font-style: red;
 	color: red;
@@ -541,7 +557,32 @@ footer
 	}
 	#container
 	{
-		background-size: 300% 300% !important;
+		background-size: 280% 280% !important;
+		width: 90%;
+	}
+	.categories
+	{
+		width: 90%;
+	}
+	footer
+	{
+		width: 90%;
+	}
+	.kategoriap
+	{
+		width: 90%;
+	}
+	.kategoriaw
+	{
+		width: 90%;
+	}
+	.category
+	{
+		width: 90%;
+	}
+	h4
+	{
+		font-size: 10px !important;
 	}
 }
 
@@ -571,17 +612,42 @@ footer
 	{
 		margin-left: 60%;
 	}
-	.kat
-	{
-		margin-left: 0px;
-	}
-	.od
-	{
-		margin-left: 0px;
-	}
 	h4
 	{
-		min-height: 40px;
+		min-height: 30px;
+		font-size: 12px !important;
+	}
+	.category
+	{
+		min-height: 30px
+	}
+	#container
+	{
+		width: 80%;
+	}
+	.categories
+	{
+		width: 80%;
+	}
+	footer
+	{
+		width: 80%;
+	}
+}
+
+@media (max-width: 1600px)
+{
+	.kategoriap
+	{
+		width: 80%;
+	}
+	.kategoriaw
+	{
+		width: 80%;
+	}
+	.category
+	{
+		width: 80%;
 	}
 }
 

@@ -155,13 +155,7 @@
 										
 									</form>
 	
-									<table width="60%" align="center">
-										<tr>
-											<td colspan="3" align="center" bgcolor="black">
-												</td>
-										</tr>
-										<tr>
-											<td width="60%" align="top">
+									<hr style="height: 5px; color: #000000;">
 							
 										<h3>Przychody</h3>
 											<div class="category">
@@ -305,21 +299,15 @@
 											<div style="clear:both;">
 											</div>
 										
-											</td> 
-				</tr>
-				<tr>
-						<td colspan="3" align="center" bgcolor="black">
-						</td>
-				</tr>
-						<td width="60%" align="top">
+					<hr style="height: 5px; color: #000000;">
 			
-						<h3>Wydatki</h3>
+										<h3>Wydatki</h3>
 											<div class="category">
 													<div class="category_transaction_category">
 															<h4>Kategoria: </h4>
 													</div>
 													<div class="category_amount">
-															<h4>Wysokość przychodu: </h4>
+															<h4>Wysokość wydatku: </h4>
 													</div>
 													<div class="category_date">
 															<h4>Data:</h4>
@@ -454,14 +442,8 @@
 											</div>
 											<div style="clear:both;">
 											</div>
-										
-						</td> 
-						
-						<tr>
-							<td colspan="3" align="center" bgcolor="black">
-							</td>
-						</tr>		
-	</table>
+											
+								<hr style="height: 5px; color: #000000;">
 	
 	</header>
 	
