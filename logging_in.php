@@ -4,7 +4,7 @@
 	
 	if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true))
 	{
-		header('Location: index.html');
+		header('Location: index.php');
 		exit();
 	}
 
@@ -20,6 +20,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		
 	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="shortcut icon" type="image/ico" href="img/bag.jpg">
 	
 </head>
 

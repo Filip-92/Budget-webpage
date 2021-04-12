@@ -1,7 +1,7 @@
 body
 {
 	/* Background pattern from subtlepatterns.com */
-	background-image: url("img/hexellence.png");
+	background-image: url("img/webb-dark.png");
 	font-size: 17px;
 	font-family: Open-Sans, serif;
 }
@@ -571,10 +571,12 @@ footer
 	.kategoriap
 	{
 		width: 90%;
+		font-size: 14px;
 	}
 	.kategoriaw
 	{
 		width: 90%;
+		font-size: 14px;
 	}
 	.category
 	{

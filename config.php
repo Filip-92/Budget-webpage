@@ -2,7 +2,7 @@
 
 return [
 	'host' => 'localhost', 
-	'user' => 'root',
-	'password' => '',
-	'database' => 'budzet'
+	'user' => 'filippes_filippes',
+	'password' => 'BloodRayne225#',
+	'database' => 'filippes_HomeBudgetAdmin'
 ];

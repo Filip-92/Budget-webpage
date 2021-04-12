@@ -1,0 +1,9 @@
+[12-Apr-2021 08:25:05 UTC] PHP Notice:  Undefined index: logged_id in /home2/filippes/budget.filippeszke.pl/Wyzwanie/add_income.php on line 11
+[12-Apr-2021 08:25:16 UTC] PHP Notice:  Undefined index: logged_id in /home2/filippes/budget.filippeszke.pl/Wyzwanie/add_income.php on line 11
+[12-Apr-2021 08:25:27 UTC] PHP Notice:  Undefined index: date_of_transaction in /home2/filippes/budget.filippeszke.pl/Wyzwanie/balance_default.php on line 106
+[12-Apr-2021 08:25:59 UTC] PHP Notice:  Undefined index: date_of_transaction in /home2/filippes/budget.filippeszke.pl/Wyzwanie/balance_default.php on line 106
+[12-Apr-2021 08:26:27 UTC] PHP Notice:  Undefined index: date_of_transaction in /home2/filippes/budget.filippeszke.pl/Wyzwanie/balance_previous_month.php on line 106
+[12-Apr-2021 08:26:34 UTC] PHP Notice:  Undefined index: date_of_transaction in /home2/filippes/budget.filippeszke.pl/Wyzwanie/balance_current_year.php on line 106
+[12-Apr-2021 08:27:06 UTC] PHP Notice:  Undefined index: date_of_transaction in /home2/filippes/budget.filippeszke.pl/Wyzwanie/balance_custom_date.php on line 106
+[12-Apr-2021 08:27:08 UTC] PHP Notice:  Undefined index: date_of_transaction in /home2/filippes/budget.filippeszke.pl/Wyzwanie/balance_custom_date.php on line 106
+[12-Apr-2021 08:27:26 UTC] PHP Notice:  Undefined index: date_of_transaction in /home2/filippes/budget.filippeszke.pl/Wyzwanie/balance_default.php on line 106

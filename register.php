@@ -52,7 +52,7 @@
 		$password_hash = password_hash($password1, PASSWORD_DEFAULT);
 		
 		//Bot or not? Oto jest pytanie
-		$sekret = "6Lcl9GQaAAAAAA13rLSPrGkC7-sGmIwOIg9sjw14";
+		$sekret = "6LcO6qIaAAAAAFRYsVVyQ4bCeONCIP59Ha-jyjPc";
 		
 		$sprawdz = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$sekret.'&response='.$_POST['g-recaptcha-response']);
 		
@@ -138,7 +138,7 @@
 						//var_dump($query_incomes->fetchAll());
 						
 						$_SESSION['udanarejestracja']=true;
-						header('Location: logowanie.php');
+						header('Location: logging_in.php');
 				}
 		
 		}
@@ -163,6 +163,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		
 	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="shortcut icon" type="image/ico" href="img/bag.jpg">
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	
 </head>
@@ -212,7 +213,7 @@
 			
 			<input type="password" placeholder="Powtórz hasło" name="password2" onfocus="this.placeholder=' ' " onblur="this.placeholder='Powtórz hasło'" style="margin-bottom:10px;">
 			
-			<div class="g-recaptcha" data-sitekey="6Lcl9GQaAAAAALjibic7LQytPzxnaAlD4UyggyUz"></div>
+			<div class="g-recaptcha" data-sitekey="6LcO6qIaAAAAAArSoVFLOlIVOZccMv794KY-7HSL"></div>
 			
 			<?php
 			
@@ -225,6 +226,8 @@
 			?>
 			
 			<input type="submit" value="Zarejestruj się">
+			
+			<a href="logging_in.php"><button type="button" class="styled">Masz już konto? Zaloguj się!</button></a>
 			
 		</form>
 	</div>

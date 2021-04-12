@@ -23,6 +23,8 @@
 	
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="main.css" type="text/css" />
+	<link rel="stylesheet" href="css/fontello.css" type="text/css" />
+	<link rel="shortcut icon" type="image/ico" href="img/bag.jpg">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 	
 	<!--[if lt IE 9]>
@@ -47,19 +49,19 @@
 			
 				<ul class="navbar-nav mr-auto menu">
 					<li class="nav-item">
-						<a class="nav-link" href="incomes.php">Dodaj przychód</a>
+						<a class="nav-link" href="incomes.php"><i class="icon-money" style="margin-right: 5px"></i>Dodaj przychód</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="expenses.php">Dodaj wydatek</a>
+						<a class="nav-link" href="expenses.php"><i class="icon-money-1" style="margin-right: 5px"></i>Dodaj wydatek</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="balance_default.php">Przeglądaj bilans</a>
+						<a class="nav-link" href="balance_default.php" ><i class="icon-balance-scale" style="margin-right: 5px"></i>Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Ustawienia</a>
+						<a class="nav-link" href="#"><i class="icon-cog-outline" style="margin-right: 5px"></i>Ustawienia</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="logout.php">Wyloguj się</a>
+						<a class="nav-link" href="logout.php"><i class="icon-logout" style="margin-right: 5px"></i>Wyloguj się</a>
 					</li>
 				</ul>
 				
@@ -86,7 +88,7 @@
 						<header>
 		
 							<h1 style="margin-bottom: 80px;"> Cześć <?php echo '<span style="color:green">'.$_SESSION['user'].'</span>'; ?>, witaj w aplikacji służącej do zarządzania wydatkami!</h1>
-							<img src="img/savings.jpg" class="col-12 col-xl-4 mx-2" style="float: left;">
+							<img src="img/savings.jpg" class="col-12 col-xl-4 mx-2" style="float: left; margin-bottom: 20px;">
 							<p class="text-justify align-left">Aplikacja ta pozwala kontrolować zarówno swoje przychody jak i wydatki, za pośrednictwem następujących funkcji: </p><br>
 							<li class="align-right"> Dodawanie przychodu wraz z wyborem odpowiedniej kategorii, daty i wysokości przychodu</li>
 							<li class="align-middle"> Analogicznie dla dodawania wydatku, dodatkowo jest tam również opcja określenia sposobu płatności</li>

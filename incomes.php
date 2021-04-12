@@ -11,6 +11,7 @@
 	
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="main.css" type="text/css" />
+	<link rel="shortcut icon" type="image/ico" href="img/bag.jpg">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 	
 	<!--[if lt IE 9]>
