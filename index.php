@@ -111,7 +111,7 @@
 		<footer>
 				
 				<div class="info">
-						Wszelkie prawa zastrzeżone &copy; 2021 Dziękuję za wizytę!
+						Wszelkie prawa zastrzeżone &copy; 2021 Zarządzaj swoim budżetem!
 				</div>
 		
 		</footer>
