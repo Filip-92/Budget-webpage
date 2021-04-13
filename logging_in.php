@@ -20,6 +20,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		
 	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="css/fontello.css" type="text/css" />
 	<link rel="shortcut icon" type="image/ico" href="img/bag.jpg">
 	
 </head>
@@ -31,9 +32,13 @@
 		
 			<div style="color: #008000; font-size: 24; font-weight: bold; margin-bottom: 20px; text-align: center;"> Podaj dane do logowania: </div>
 			
-			<input type="text" name="login" placeholder="login" onfocus="this.placeholder=' ' " onblur="this.placeholder='login '" maxlength="20" required>
+			<div class="text-field" style="float: left"><i class="icon-user" style="margin-top: 5px"></i></div><input type="text" name="login" placeholder="login" onfocus="this.placeholder=' ' " onblur="this.placeholder='login '" maxlength="20" required>
+			<div style="clear:both;">
+			</div>
 			
-			<input type="password" name="password" placeholder="hasło" onfocus="this.placeholder=' ' " onblur="this.placeholder='hasło'" maxlength="20" required>
+			<div class="text-field" style="float: left"><i class="icon-key"></i></div><input type="password" name="password" placeholder="hasło" onfocus="this.placeholder=' ' " onblur="this.placeholder='hasło'" maxlength="20" required>
+			<div style="clear:both;">
+			</div>
 			
 			<?php
 

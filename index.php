@@ -88,7 +88,7 @@
 						<header>
 		
 							<h1 style="margin-bottom: 80px;"> Cześć <?php echo '<span style="color:green">'.$_SESSION['user'].'</span>'; ?>, witaj w aplikacji służącej do zarządzania wydatkami!</h1>
-							<img src="img/savings.jpg" class="col-12 col-xl-4 mx-2" style="float: left; margin-bottom: 20px;">
+							<img src="img/savings.jpg" class="col-12 col-xl-4 ml-2 mr-2" style="float: left; margin-bottom: 20px;">
 							<p class="text-justify align-left">Aplikacja ta pozwala kontrolować zarówno swoje przychody jak i wydatki, za pośrednictwem następujących funkcji: </p><br>
 							<li class="align-right"> Dodawanie przychodu wraz z wyborem odpowiedniej kategorii, daty i wysokości przychodu</li>
 							<li class="align-middle"> Analogicznie dla dodawania wydatku, dodatkowo jest tam również opcja określenia sposobu płatności</li>

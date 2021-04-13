@@ -51,19 +51,19 @@
 			
 				<ul class="navbar-nav mr-auto menu">
 					<li class="nav-item">
-						<a class="nav-link" href="incomes.php">Dodaj przychód</a>
+						<a class="nav-link" href="incomes.php"><i class="icon-money" style="margin-right: 5px"></i>Dodaj przychód</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="expenses.php">Dodaj wydatek</a>
+						<a class="nav-link" href="expenses.php"><i class="icon-money-1" style="margin-right: 5px"></i>Dodaj wydatek</a>
 					</li>
 					<li class="nav-item">
-						<div class="nav-link active">Przeglądaj bilans</a>
+						<a class="nav-link active"><i class="icon-balance-scale" style="margin-right: 5px"></i>Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Ustawienia</a>
+						<a class="nav-link" href="#"><i class="icon-cog-outline" style="margin-right: 5px"></i>Ustawienia</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="logout.php">Wyloguj się</a>
+						<a class="nav-link" href="logout.php"><i class="icon-logout" style="margin-right: 5px"></i>Wyloguj się</a>
 					</li>
 				</ul>
 				
@@ -177,7 +177,7 @@
 															<h4>Kategoria: </h4>
 													</div>
 													<div class="category_amount">
-															<h4>Wysokość przychodu: </h4>
+															<h4>Kwota przychodu: </h4>
 													</div>
 													<div class="category_date">
 															<h4>Data:</h4>
@@ -321,7 +321,7 @@
 															<h4>Kategoria: </h4>
 													</div>
 													<div class="category_amount">
-															<h4>Wysokość wydatku: </h4>
+															<h4>Kwota wydatku: </h4>
 													</div>
 													<div class="category_date">
 															<h4>Data:</h4>
@@ -498,15 +498,17 @@
                     ?>                    
         </div>
 		
-		<div class="col-6 my-4" style="float: left">
-			<div class="display-4 text-center">Wydatki</div>
+		<div class="col-6 row my-5 " style="float: left">
+			<div class="display-4 text-center col-md-auto px-0">Wydatki</div>
 			<div id="chartWrap"></div>
-			<div id="piechart"></div>
+			<div id="piechart" class="piechart"></div>
 		</div>
 		<div style="clear:both;">
 		</div>
-
+		
+		<div class="col-12 col-xl-6 piechart">
 		<script src="https://www.gstatic.com/charts/loader.js"></script>
+		</div>
 
 		<script>
 			google.charts.load('current', {'packages':['corechart']});

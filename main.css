@@ -354,7 +354,7 @@ input:focus:-ms-input-placeholder
 	height: 20px !important;
 	background-color: white;
 	width: 60%;
-	min-width: 480px;
+	min-width: 400px;
 	margin-left: auto;
 	margin-right: auto;
 	border: 1px solid #808080;
@@ -401,7 +401,7 @@ input:focus:-ms-input-placeholder
 	margin-left: auto;
 	margin-right: auto;
 	height: 300px;
-	min-width: 480px;
+	min-width: 400px;
 	background-color: #EEEEEE;
 	font-style: green;
 	color: green;
@@ -512,6 +512,12 @@ footer
 	height: 40px;
 }
 
+.piechart
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .balance
 {
 	border: 1px solid #808080;
@@ -570,17 +576,17 @@ footer
 	}
 	.kategoriap
 	{
-		width: 90%;
-		font-size: 14px;
+		width: 85%;
+		font-size: 12px;
 	}
 	.kategoriaw
 	{
-		width: 90%;
-		font-size: 14px;
+		width: 85%;
+		font-size: 12px;
 	}
 	.category
 	{
-		width: 90%;
+		width: 85%;
 	}
 	h4
 	{

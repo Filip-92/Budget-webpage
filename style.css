@@ -22,11 +22,11 @@ input[type=text],
 input[type=password],
 input[type=email]
 {
-	width: 300px;
+	width: 250px;
 	background-color: #efefef;
 	color: #666;
 	border: 2px solid #ddd;
-	border-radius: 5px;
+	border-radius: 0 5px 5px 0;
 	font-size: 20px;
 	padding: 10px;
 	box-sizing: border-box;
@@ -110,6 +110,28 @@ input:-ms-input-placeholder
 input:focus:-ms-input-placeholder
 {
 	color: #428C42;
+}
+
+.text-field
+{
+	width: 35px;
+	background-color: #b3b3b3;
+	color: #666;
+	height: 47px;
+	border: 2px solid #ddd;
+	border-radius: 5px 0 0 5px;
+	font-size: 20px;
+	box-sizing: border-box;
+	display: block;
+	outline: none;
+	margin-top: 10px;
+}
+
+.kafelek
+{
+	vertical-align: middle !important;
+	height: 40px;
+	line-height: 40px;
 }
 
 .styled 

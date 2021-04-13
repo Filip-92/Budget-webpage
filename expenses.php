@@ -1,3 +1,15 @@
+<?php
+
+	session_start();
+	
+	if ((!isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] != true))
+	{
+		header('Location: index.html');
+		exit();
+	}
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -11,6 +23,7 @@
 	
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="main.css" type="text/css" />
+	<link rel="stylesheet" href="css/fontello.css" type="text/css" />
 	<link rel="shortcut icon" type="image/ico" href="img/bag.jpg">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 	
@@ -34,23 +47,21 @@
 			
 				<div class="collapse navbar-collapse align-items-start" id="mainmenu">
 			
-				<ul class="navbar-nav mr-auto menu">
-					<li class="nav-item">
-						<a class="nav-link" href="incomes.php">Dodaj przychód</a>
+				<li class="nav-item">
+						<div class="nav-link" href="incomes.php"><i class="icon-money" style="margin-right: 5px"></i>Dodaj przychód</div>
 					</li>
 					<li class="nav-item">
-						<div class="nav-link active">Dodaj wydatek</div>
+						<a class="nav-link active"><i class="icon-money-1" style="margin-right: 5px"></i>Dodaj wydatek</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="balance_default.php">Przeglądaj bilans</a>
+						<a class="nav-link" href="balance_default.php"><i class="icon-balance-scale" style="margin-right: 5px"></i>Przeglądaj bilans</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Ustawienia</a>
+						<a class="nav-link" href="#"><i class="icon-cog-outline" style="margin-right: 5px"></i>Ustawienia</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="logout.php">Wyloguj się</a>
+						<a class="nav-link" href="logout.php"><i class="icon-logout" style="margin-right: 5px"></i>Wyloguj się</a>
 					</li>
-				</ul>
 				
 				</div>
 				
