@@ -47,6 +47,7 @@
 			
 				<div class="collapse navbar-collapse align-items-start" id="mainmenu">
 			
+				<ul class="navbar-nav mr-auto menu">
 				<li class="nav-item">
 						<div class="nav-link" href="incomes.php"><i class="icon-money" style="margin-right: 5px"></i>Dodaj przychód</div>
 					</li>
