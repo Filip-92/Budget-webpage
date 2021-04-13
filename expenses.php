@@ -49,7 +49,7 @@
 			
 				<ul class="navbar-nav mr-auto menu">
 				<li class="nav-item">
-						<div class="nav-link" href="incomes.php"><i class="icon-money" style="margin-right: 5px"></i>Dodaj przychód</div>
+						<a class="nav-link" href="incomes.php"><i class="icon-money" style="margin-right: 5px"></i>Dodaj przychód</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active"><i class="icon-money-1" style="margin-right: 5px"></i>Dodaj wydatek</a>
